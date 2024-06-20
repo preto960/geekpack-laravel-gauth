@@ -54,6 +54,27 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Api\Listeners\SendEmailVerificationNotification::class,
         );
 
+        $this->executeNpmCommand();
+
+    }
+
+    public function executeNpmCommand()
+    {
+        // Ejemplo de comando npm para instalar un paquete
+        $command = 'npm install @inertiajs/vue3';
+
+        // Ejecutar el comando y obtener la salida
+        $output = [];
+        exec($command, $output, $returnCode);
+
+        // Verificar el código de retorno (0 significa éxito)
+        if ($returnCode === 0) {
+            // Éxito: hacer algo con la salida si es necesario
+            dd($output);
+        } else {
+            // Error: manejar el error como sea necesario
+            dd("Error al ejecutar el comando: $command");
+        }
     }
 }
 
