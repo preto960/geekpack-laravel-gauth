@@ -16,6 +16,7 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.9",
+        "inertiajs/inertia-laravel": "^1.0",
         "laravel/sanctum": "^4.0"
     },
     "minimum-stability": "dev",
@@ -32,5 +33,5 @@
             ]
         }
     },
-    "version": "0.0.6"
+    "version": "0.0.7"
 }
