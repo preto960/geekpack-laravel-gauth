@@ -36,7 +36,7 @@ class GauthServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->publishes([
-            __DIR__.'/Resources/Views/app.blade.php' => resource_path('views/vendor/mail/app.blade.php'),
+            __DIR__.'/Resources/Views/app.blade.php' => resource_path('views/app.blade.php'),
         ], 'views');
 
         $this->publishes([
