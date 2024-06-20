@@ -1,0 +1,36 @@
+{
+    "name": "geekpack/laravel-gauth",
+    "description": "package to handle authentication, registration, email verification, logout, password reset with api and sanctum paths, you must have installed the geekpack/laravel-api package.",
+    "license": "MIT",
+    "keywords": [
+        "geekpack",
+        "laravel",
+        "gauth"
+    ],
+    "authors": [
+        {
+            "name": "Juan Orellana",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^11.9",
+        "laravel/sanctum": "^4.0"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Geekpack\\Gauth\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Geekpack\\Gauth\\GauthServiceProvider",
+                "Laravel\\Sanctum\\SanctumServiceProvider"
+            ]
+        }
+    },
+    "version": "0.0.1"
+}
