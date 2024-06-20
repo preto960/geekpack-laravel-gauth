@@ -20,10 +20,10 @@ class GauthServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        /* $this->publishes([
+        $this->publishes([
             __DIR__.'/../config/mail.php' => config_path('mail.php'),
             __DIR__.'/../config/auth.php' => config_path('auth.php'),
-        ], 'config'); */
+        ], 'config');
 
         $this->publishes([
             __DIR__.'/Database/migrations/' => database_path('migrations'),
