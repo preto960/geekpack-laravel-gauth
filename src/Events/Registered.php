@@ -1,11 +1,11 @@
 <?php
 
-namespace Geekpack\Api\Events;
+namespace Geekpack\Gauth\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Geekpack\Api\Models\User;
+use Geekpack\Gauth\Models\User;
 
 class Registered
 {

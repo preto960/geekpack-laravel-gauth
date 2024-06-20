@@ -1,15 +1,15 @@
 <?php
 
-namespace Geekpack\Api\Http\Controllers;
+namespace Geekpack\Gauth\Http\Controllers;
 
-use Geekpack\Api\Models\User;
+use Geekpack\Gauth\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Event;
-use Geekpack\Api\Events\Registered;
+use Geekpack\Gauth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
 use App\Http\Controllers\Controller;
 

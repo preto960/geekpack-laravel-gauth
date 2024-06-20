@@ -1,9 +1,9 @@
 <?php
 
-namespace Geekpack\Api\Listeners;
+namespace Geekpack\Gauth\Listeners;
 
-use Geekpack\Api\Events\Registered;
-use Geekpack\Api\Notifications\VerifyEmailNotification;
+use Geekpack\Gauth\Events\Registered;
+use Geekpack\Gauth\Notifications\VerifyEmailNotification;
 use Illuminate\Support\Facades\Log;
 
 class SendEmailVerificationNotification

@@ -1,13 +1,13 @@
 <?php
 
-namespace Geekpack\Api\Models;
+namespace Geekpack\Gauth\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Geekpack\Api\Notifications\ResetPasswordNotification;
+use Geekpack\Gauth\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable
 {
