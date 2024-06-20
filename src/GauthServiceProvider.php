@@ -22,13 +22,8 @@ class GauthServiceProvider extends ServiceProvider
         );
 
         $this->mergeConfigFrom(
-            __DIR__.'/../config/sanctum.php',
-            'sanctum'
-        );
-
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/auth.php',
-            'auth'
+            __DIR__.'/../config/mail.php',
+            'mail'
         );
     }
 
