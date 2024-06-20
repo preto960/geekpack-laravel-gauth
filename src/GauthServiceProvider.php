@@ -42,6 +42,10 @@ class GauthServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->publishes([
+            __DIR__.'/vite.config.js' => base_path('vite.config.js'),
+        ], 'config'); 
+
+        $this->publishes([
             __DIR__.'/Resources/Views/app.blade.php' => resource_path('views/app.blade.php'),
         ], 'views');
 
@@ -55,7 +59,7 @@ class GauthServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/Database/migrations/' => database_path('migrations'),
-        ], 'migrations');
+        ], 'migrations'); 
 
         $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
 
@@ -64,27 +68,6 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Api\Listeners\SendEmailVerificationNotification::class,
         );
 
-        /* $this->executeNpmCommand(); */
-
     }
-
-    /* public function executeNpmCommand()
-    {
-        // Ejemplo de comando npm para instalar un paquete
-        $command = 'npm install @inertiajs/vue3';
-
-        // Ejecutar el comando y obtener la salida
-        $output = [];
-        exec($command, $output, $returnCode);
-
-        // Verificar el código de retorno (0 significa éxito)
-        if ($returnCode === 0) {
-            // Éxito: hacer algo con la salida si es necesario
-            dd($output);
-        } else {
-            // Error: manejar el error como sea necesario
-            dd("Error al ejecutar el comando: $command");
-        }
-    } */
 }
 
