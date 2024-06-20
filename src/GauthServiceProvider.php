@@ -50,7 +50,7 @@ class GauthServiceProvider extends ServiceProvider
         ], 'routes');      
         
         $this->publishes([
-            __DIR__.'/Middleware/HandleInertiaRequests.php' => app_path('Http/Middleware/HandleInertiaRequests.php'),
+            __DIR__.'/Http/Middleware/HandleInertiaRequests.php' => app_path('Http/Middleware/HandleInertiaRequests.php'),
         ], 'middleware');   
 
         $this->publishes([
