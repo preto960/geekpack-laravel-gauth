@@ -40,6 +40,10 @@ class GauthServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
+            __DIR__.'/Routes/web.php' => base_path('routes/web.php'),
+        ], 'routes');        
+
+        $this->publishes([
             __DIR__.'/Database/migrations/' => database_path('migrations'),
         ], 'migrations');
 
