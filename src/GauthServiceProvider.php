@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
+use App\Http\Middleware\HandleInertiaRequests;
 
 class GauthServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,10 @@ class GauthServiceProvider extends ServiceProvider
             __DIR__.'/../config/mail.php',
             'mail'
         );
+
+        $this->app->booted(function () {
+            $this->app['router']->pushMiddlewareToGroup('web', HandleInertiaRequests::class);
+        });
     }
 
     public function boot()
@@ -41,7 +46,11 @@ class GauthServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/Routes/web.php' => base_path('routes/web.php'),
-        ], 'routes');        
+        ], 'routes');      
+        
+        $this->publishes([
+            __DIR__.'/Middleware/HandleInertiaRequests.php' => base_path('App/Http/Middleware/HandleInertiaRequests.php'),
+        ], 'routes');   
 
         $this->publishes([
             __DIR__.'/Database/migrations/' => database_path('migrations'),
