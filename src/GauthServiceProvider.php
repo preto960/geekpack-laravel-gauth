@@ -1,6 +1,6 @@
 <?php
 
-namespace Geekpack\gauth;
+namespace Geekpack\Gauth;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
