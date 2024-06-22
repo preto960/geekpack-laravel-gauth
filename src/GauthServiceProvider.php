@@ -43,6 +43,9 @@ class GauthServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/vite.config.js' => base_path('vite.config.js'),
+            __DIR__.'/postcss.config.js' => base_path('postcss.config.js'),
+            __DIR__.'/tailwind.config.js' => base_path('tailwind.config.js'),
+            __DIR__.'/package.json' => base_path('package.json'),
         ], 'config'); 
 
         $this->publishes([
@@ -51,6 +54,8 @@ class GauthServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/Resources/Js/app.js' => resource_path('js/app.js'),
+            __DIR__.'/Resources/Js/Components' => resource_path('js/Components'),
+            __DIR__.'/Resources/Js/Pages' => resource_path('js/Pages'),
         ], 'views');
 
         $this->publishes([
