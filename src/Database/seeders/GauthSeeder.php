@@ -22,7 +22,8 @@ class GauthSeeder extends Seeder
                 'route' => 'api/login', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'login', 
-                'name' => 'api.login'],
+                'name' => 'api.login'
+            ],
             [
 
                 'type' => 'post', 
@@ -30,58 +31,74 @@ class GauthSeeder extends Seeder
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'logout', 
                 'name' => 'api.logout', 
-                'middleware' => 'auth:sanctum'],
+                'middleware' => 'auth:sanctum'
+            ],
             [
 
                 'type' => 'post', 
                 'route' => 'api/forgot-password', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'forgotPassword', 
-                'name' => 'api.forgot-password'],
+                'name' => 'api.forgot-password'
+            ],
             [
 
                 'type' => 'post', 
                 'route' => 'api/reset-password', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'resetPassword', 
-                'name' => 'api.password.update'],
+                'name' => 'api.password.update'
+            ],
             [
                 'type' => 'get', 
                 'route' => 'api/email/verify', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'emailVerificationNotice', 
-                'name' => 'verification.notice'],
+                'name' => 'verification.notice'
+            ],
             [
 
                 'type' => 'get', 
                 'route' => 'api/email/verify/{id}/{hash}', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'verify', 
-                'name' => 'verification.verify'],
+                'name' => 'verification.verify'
+            ],
             [
                 'type' => 'post', 
                 'route' => 'api/email/resend', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'resendVerificationEmail', 
-                'name' => 'verification.send'],
+                'name' => 'verification.send'
+            ],
             [
                 'type' => 'get', 
                 'route' => 'login', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'showLogin', 
-                'name' => 'login'],
+                'name' => 'login'
+            ],
             [
                 'type' => 'get', 
                 'route' => 'register', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'showRegister', 
-                'name' => 'register'],
+                'name' => 'register'
+            ],
+            [
+                'type' => 'get', 
+                'route' => 'forgotpassword', 
+                'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
+                'class' => 'showForgotPassword', 
+                'name' => 'forgotpassword'
+            ],
             [
                 'type' => 'get', 
                 'route' => 'verifyemail', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'showVerifyEmail', 
-                'name' => 'verifyemail'],
+                'name' => 'verifyemail'
+            ],
         ];
 
         foreach ($routes as $routeData) {
