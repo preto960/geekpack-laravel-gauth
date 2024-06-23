@@ -85,6 +85,7 @@ class GauthServiceProvider extends ServiceProvider
         );
 
         if ($this->app->runningInConsole() && !$this->seeded) {
+            Log::info('variable seeded'. $this->seeded);
             $this->seedDatabase();
             $this->seeded = true;
         }
