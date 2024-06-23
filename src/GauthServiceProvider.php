@@ -87,7 +87,6 @@ class GauthServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole() && $this->seeded == 0) {
             Log::info('variable seeded: '. $this->seeded);
             $this->seedDatabase();
-            $this->seeded = 1;
         }
     }
 
@@ -95,6 +94,7 @@ class GauthServiceProvider extends ServiceProvider
     {
         // Verificar que la tabla exista antes de intentar insertar datos
         if (Schema::hasTable('api_routes')) {
+            $this->seeded = 1;
             $this->app->make(GauthSeeder::class)->run();
         } else {
             // Opcional: mostrar un mensaje de advertencia si la tabla no está disponible
