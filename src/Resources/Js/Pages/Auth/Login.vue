@@ -15,6 +15,13 @@
         <div class="mt-6">
           <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-lg">Login</button>
         </div>
+        <div class="mt-6">
+          <Link :href="route('forgotpassword')"
+              class="rounded-md px-3 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+          >
+              Forgot Password
+          </Link>
+        </div>
       </form>
     </div>
   </div>
