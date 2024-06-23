@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Illuminate\Contracts\Http\Kernel;
 use App\Http\Middleware\HandleInertiaRequests;
+use Geekpack\Gauth\Database\seeders\GauthSeeder;
 
 class GauthServiceProvider extends ServiceProvider
 {
@@ -71,7 +72,7 @@ class GauthServiceProvider extends ServiceProvider
         ], 'migrations'); 
 
         $this->publishes([
-            __DIR__.'/Database/Seeders/GauthSeeder.php' => database_path('seeders/GauthSeeder.php'),
+            __DIR__.'/Database/seeders/GauthSeeder.php' => database_path('seeders/GauthSeeder.php'),
         ], 'seeders');
 
         $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
@@ -81,14 +82,14 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Api\Listeners\SendEmailVerificationNotification::class,
         );
 
-        $this->runSeeder();
+        if ($this->app->runningInConsole()) {
+            $this->seed();
+        }
     }
 
-    protected function runSeeder()
+    protected function seed()
     {
-        if ($this->app->runningInConsole()) {
-            $this->call(GauthSeeder::class);
-        }
+        $this->app->make(GauthSeeder::class)->run();
     }
 }
 
