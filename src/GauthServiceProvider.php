@@ -33,7 +33,9 @@ class GauthServiceProvider extends ServiceProvider
             $this->app['router']->pushMiddlewareToGroup('web', HandleInertiaRequests::class);
         });
         
-        $this->seedDatabase();
+        $this->app->afterResolving(function () {
+            $this->seedDatabase();
+        });
     }
 
     public function boot()
