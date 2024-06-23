@@ -10,8 +10,6 @@ use Inertia\Inertia;
 use Illuminate\Contracts\Http\Kernel;
 use App\Http\Middleware\HandleInertiaRequests;
 use Geekpack\Gauth\Database\seeders\GauthSeeder;
-use Illuminate\Contracts\Cache\Lock;
-use Illuminate\Support\Facades\Cache;
 
 class GauthServiceProvider extends ServiceProvider
 {
@@ -83,23 +81,6 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Api\Events\Registered::class,
             \Geekpack\Api\Listeners\SendEmailVerificationNotification::class,
         );
-
-        $this->seedDatabase();
-    }
-
-    protected function seedDatabase()
-    {
-        $lock = Cache::lock('seed-database-lock',10);
-
-        if ($lock->get()) {
-            if (Schema::hasTable('api_routes')) {
-                $this->app->make(GauthSeeder::class)->run();
-            } else {
-                Log::warning('Tabla api_routes no encontrada. No se pudo ejecutar el seeder.');
-            }
-            
-            $lock->release();
-        }
     }
 }
 
