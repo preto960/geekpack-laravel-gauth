@@ -27,23 +27,32 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-
+    
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            if ($request->expectsJson()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+            return back()->withErrors($validator)->withInput();
         }
-
+    
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Invalid login details'], 401);
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Invalid login details'], 401);
+            }
+            return back()->withErrors(['email' => 'Invalid login details'])->withInput();
         }
-
+    
         $user = User::where('email', $request['email'])->firstOrFail();
-
+    
         if (!$user->hasVerifiedEmail()) {
-            return response()->json(['message' => 'Email not verified.'], 403);
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Email not verified.'], 403);
+            }
+            return back()->withErrors(['email' => 'Email not verified.'])->withInput();
         }
-
+    
         $token = $user->createToken('auth_token')->plainTextToken;
-
+    
         return response()->json(['access_token' => $token, 'token_type' => 'Bearer'], 200);
     }
 
@@ -58,10 +67,14 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required|string|min:8'
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            if ($request->expectsJson()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+            return back()->withErrors($validator)->withInput();
         }
 
         $user = User::create([
@@ -94,7 +107,10 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            if ($request->expectsJson()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+            return back()->withErrors($validator)->withInput();
         }
 
         $user = User::where('email', $request->email)->first();
@@ -123,7 +139,10 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            if ($request->expectsJson()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+            return back()->withErrors($validator)->withInput();
         }
 
         $status = Password::broker()->reset(
@@ -176,8 +195,6 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Email has been verified.'], 200);
     }
-
-
 
     public function resendVerificationEmail(Request $request)
     {
