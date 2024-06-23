@@ -7,10 +7,12 @@
         <div class="mt-4">
           <label class="block text-gray-700">Email</label>
           <input v-model="form.email" type="email" class="w-full mt-2 p-2 border rounded-lg">
+          <InputError class="mt-2" :message="form.errors.email" />
         </div>
         <div class="mt-4">
           <label class="block text-gray-700">Password</label>
           <input v-model="form.password" type="password" class="w-full mt-2 p-2 border rounded-lg">
+          <InputError class="mt-2" :message="form.errors.password" />
         </div>
         <div class="block mt-4">
             <label class="flex items-center">
@@ -36,6 +38,7 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import Checkbox from '@/Components/Theme1/Components/Checkbox.vue';
+import InputError from '@/Components/Theme1/Components/InputError.vue';
 
 const form = useForm({
     email: '',
@@ -47,7 +50,7 @@ const submit = () => {
     form.transform(data => ({
         ...data,
         remember: form.remember ? 'on' : '',
-    })).post(route('api/login'), {
+    })).post(route('api.login'), {
         onFinish: () => form.reset('password'),
     });
 };
