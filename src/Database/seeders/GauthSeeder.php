@@ -71,7 +71,7 @@ class GauthSeeder extends Seeder
                 'class' => 'showLogin', 
                 'name' => 'login'],
             [
-                'type' => 'post', 
+                'type' => 'get', 
                 'route' => 'register', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'showRegister', 
