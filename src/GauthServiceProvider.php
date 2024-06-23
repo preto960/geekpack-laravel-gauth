@@ -13,6 +13,8 @@ use Geekpack\Gauth\Database\seeders\GauthSeeder;
 
 class GauthServiceProvider extends ServiceProvider
 {
+    protected $seeded = false;
+
     public function register()
     {
         $this->app['router']->aliasMiddleware('verified', \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class);
@@ -32,15 +34,11 @@ class GauthServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             $this->app['router']->pushMiddlewareToGroup('web', HandleInertiaRequests::class);
         });
-        
-        $this->app->afterResolving(function () {
-            $this->seedDatabase();
-        });
     }
 
     public function boot()
     {
-        Log::info('boot');
+
         $this->publishes([
             __DIR__.'/../config/mail.php' => config_path('mail.php'),
             __DIR__.'/../config/inertia.php' => config_path('inertia.php'),
@@ -85,6 +83,11 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Api\Events\Registered::class,
             \Geekpack\Api\Listeners\SendEmailVerificationNotification::class,
         );
+
+        if ($this->app->runningInConsole() && !$this->seeded) {
+            $this->seedDatabase();
+            $this->seeded = true;
+        }
     }
 
     protected function seedDatabase()
