@@ -83,8 +83,8 @@ class GauthServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
 
         \Illuminate\Support\Facades\Event::listen(
-            \Geekpack\Api\Events\Registered::class,
-            \Geekpack\Api\Listeners\SendEmailVerificationNotification::class,
+            \Geekpack\Gauth\Events\Registered::class,
+            \Geekpack\Gauth\Listeners\SendEmailVerificationNotification::class,
         );
     }
 }
