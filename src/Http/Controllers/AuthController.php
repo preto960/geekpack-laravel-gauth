@@ -13,6 +13,7 @@ use Geekpack\Gauth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -137,7 +138,7 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
+        
         if ($validator->fails()) {
             if ($request->expectsJson()) {
                 return response()->json(['errors' => $validator->errors()], 422);
@@ -148,14 +149,16 @@ class AuthController extends Controller
         $status = Password::broker()->reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
+
                 $user->forceFill([
                     'password' => Hash::make($password),
                 ])->save();
 
-                $user->tokens()->delete(); // Invalida todos los tokens actuales del usuario
+                PersonalAccessToken::where('tokenable_id', $user->id)
+                                    ->where('tokenable_type', get_class($user))
+                                    ->delete();
             }
         );
-
         if ($status == Password::PASSWORD_RESET) {
             return response()->json(['message' => 'Password has been reset'], 200);
         }

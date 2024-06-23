@@ -20,24 +20,24 @@
           </div>
           <InputError class="mt-2" :message="form.errors.password" />
         </div>
-        <div class="block mt-4">
-          <label class="flex items-center">
+        <div class="flex items-center justify-between mt-4">
+          <div class="flex items-center">
             <Checkbox v-model:checked="form.remember" name="remember" />
             <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-          </label>
+          </div>
+          <div>
+            <Link :href="route('forgotpassword')"
+              class="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
+            >
+              Forgot Password?
+            </Link>
+          </div>
         </div>
         <div class="mt-6">
           <button :disabled="form.isSubmitting" type="submit" class="w-full bg-blue-500 text-white p-2 rounded-lg">
-            <span v-if="form.isSubmitting">Logging in...</span>
-            <span v-else>Login</span>
+            <span v-if="form.isSubmitting">Signing In...</span>
+            <span v-else>Sign In</span>
           </button>
-        </div>
-        <div class="mt-6">
-          <Link :href="route('forgotpassword')"
-            class="rounded-md px-3 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-          >
-            Forgot Password
-          </Link>
         </div>
         <div class="mt-6">New on our platform? 
           <Link :href="route('register')"

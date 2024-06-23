@@ -37,8 +37,8 @@
         </div>
         <div class="mt-6">
           <button :disabled="form.isSubmitting" type="submit" class="w-full bg-blue-500 text-white p-2 rounded-lg">
-            <span v-if="form.isSubmitting">Registering...</span>
-            <span v-else>Register</span>
+            <span v-if="form.isSubmitting">Signing Up...</span>
+            <span v-else>Sign Up</span>
           </button>
         </div>
         <div class="mt-6">Already have an account? 

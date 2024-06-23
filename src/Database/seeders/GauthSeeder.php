@@ -47,7 +47,7 @@ class GauthSeeder extends Seeder
                 'route' => 'api/reset-password', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'resetPassword', 
-                'name' => 'api.password.update'
+                'name' => 'password.reset'
             ],
             [
                 'type' => 'get', 
