@@ -36,7 +36,7 @@ class GauthServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
+        Log::info('boot');
         $this->publishes([
             __DIR__.'/../config/mail.php' => config_path('mail.php'),
             __DIR__.'/../config/inertia.php' => config_path('inertia.php'),
