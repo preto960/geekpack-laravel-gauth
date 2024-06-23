@@ -61,6 +61,10 @@ class GauthServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
+            __DIR__.'/Resources/Css' => resource_path('css'),
+        ], 'views');
+
+        $this->publishes([
             __DIR__.'/Routes/web.php' => base_path('routes/web.php'),
         ], 'routes');      
         
