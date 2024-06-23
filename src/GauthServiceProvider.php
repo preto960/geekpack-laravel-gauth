@@ -47,6 +47,7 @@ class GauthServiceProvider extends ServiceProvider
             __DIR__.'/postcss.config.js' => base_path('postcss.config.js'),
             __DIR__.'/tailwind.config.js' => base_path('tailwind.config.js'),
             __DIR__.'/package.json' => base_path('package.json'),
+            __DIR__.'/jsconfig.json' => base_path('jsconfig.json'),
         ], 'config'); 
 
         $this->publishes([

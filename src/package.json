@@ -16,6 +16,8 @@
         "@tailwindcss/typography": "^0.5.13",
         "postcss": "^8.4.38",
         "vue": "^3.4.29",
-        "autoprefixer": "^10.4.19"
+        "autoprefixer": "^10.4.19",
+        "primeicons": "^7.0.0",
+        "primevue": "^3.52.0"
     }
 }
