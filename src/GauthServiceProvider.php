@@ -32,6 +32,8 @@ class GauthServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             $this->app['router']->pushMiddlewareToGroup('web', HandleInertiaRequests::class);
         });
+        
+        $this->seedDatabase();
     }
 
     public function boot()
@@ -81,8 +83,6 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Api\Events\Registered::class,
             \Geekpack\Api\Listeners\SendEmailVerificationNotification::class,
         );
-
-        $this->seedDatabase();
     }
 
     protected function seedDatabase()
