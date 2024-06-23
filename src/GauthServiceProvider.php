@@ -10,11 +10,10 @@ use Inertia\Inertia;
 use Illuminate\Contracts\Http\Kernel;
 use App\Http\Middleware\HandleInertiaRequests;
 use Geekpack\Gauth\Database\seeders\GauthSeeder;
+use Illuminate\Support\Facades\Lock;
 
 class GauthServiceProvider extends ServiceProvider
 {
-    protected $seeded = 0;
-
     public function register()
     {
         $this->app['router']->aliasMiddleware('verified', \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class);
@@ -84,21 +83,21 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Api\Listeners\SendEmailVerificationNotification::class,
         );
 
-        if ($this->app->runningInConsole() && $this->seeded == 0) {
-            Log::info('variable seeded: '. $this->seeded);
-            $this->seedDatabase();
-        }
+        $this->seedDatabase();
     }
 
     protected function seedDatabase()
     {
-        // Verificar que la tabla exista antes de intentar insertar datos
-        if (Schema::hasTable('api_routes')) {
-            $this->seeded = 1;
-            $this->app->make(GauthSeeder::class)->run();
-        } else {
-            // Opcional: mostrar un mensaje de advertencia si la tabla no está disponible
-            Log::warning('Tabla api_routes no encontrada. No se pudo ejecutar el seeder.');
+        $lock = Lock::lock('seed-database-lock');
+
+        if ($lock->get()) {
+            if (Schema::hasTable('api_routes')) {
+                $this->app->make(GauthSeeder::class)->run();
+            } else {
+                Log::warning('Tabla api_routes no encontrada. No se pudo ejecutar el seeder.');
+            }
+            
+            $lock->release();
         }
     }
 }
