@@ -13,7 +13,7 @@ use Geekpack\Gauth\Database\seeders\GauthSeeder;
 
 class GauthServiceProvider extends ServiceProvider
 {
-    protected $seeded = false;
+    protected $seeded = 0;
 
     public function register()
     {
@@ -84,11 +84,10 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Api\Listeners\SendEmailVerificationNotification::class,
         );
 
-        if ($this->app->runningInConsole() && !$this->seeded) {
-            Log::info('variable seeded 1: '. $this->seeded);
-            Log::info('variable seeded 2: '. $seeded);
+        if ($this->app->runningInConsole() && $this->seeded == 0) {
+            Log::info('variable seeded: '. $this->seeded);
             $this->seedDatabase();
-            $this->seeded = true;
+            $this->seeded = 1;
         }
     }
 
