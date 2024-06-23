@@ -12,30 +12,13 @@ use Illuminate\Support\Facades\Event;
 use Geekpack\Gauth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
 use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function showLogin()
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        Event::dispatch(new Registered($user));
-
-        return response()->json(['message' => 'Registration successful. Please check your email to verify your account.'], 201);
+        return Inertia::render('Auth/Login');
     }
 
     public function login(Request $request)
@@ -64,12 +47,44 @@ class AuthController extends Controller
         return response()->json(['access_token' => $token, 'token_type' => 'Bearer'], 200);
     }
 
+    public function showRegister()
+    {
+        return Inertia::render('Auth/Register');
+    }
+    
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        Event::dispatch(new Registered($user));
+
+        return response()->json(['message' => 'Registration successful. Please check your email to verify your account.'], 201);
+    }
 
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Successfully logged out'], 200);
+    }
+
+    public function showForgotPassword()
+    {
+        return Inertia::render('Auth/ForgotPassword');
     }
 
     public function forgotPassword(Request $request)
@@ -132,6 +147,11 @@ class AuthController extends Controller
     public function emailVerificationNotice()
     {
         return response()->json(['message' => 'Email verification required'], 403);
+    }
+
+    public function showVerifyEmail()
+    {
+        return Inertia::render('Auth/VerifyEmail');
     }
 
     public function verify(Request $request)

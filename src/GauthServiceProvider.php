@@ -77,6 +77,12 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Api\Listeners\SendEmailVerificationNotification::class,
         );
 
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \Geekpack\Gauth\Database\seeders\GauthSeeder::class
+            ]);
+        }
+
     }
 }
 
