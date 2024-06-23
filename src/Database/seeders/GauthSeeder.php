@@ -9,7 +9,7 @@ class GauthSeeder extends Seeder
 {
     public function run()
     {
-        ApiRoute::insert([
+        $routes = [
             ['type' => 'post', 'route' => 'api/register', 'controller' => 'Geekpack\Api\Http\Controllers\AuthController', 'class' => 'register', 'name' => 'api.register'],
             ['type' => 'post', 'route' => 'api/login', 'controller' => 'Geekpack\Api\Http\Controllers\AuthController', 'class' => 'login', 'name' => 'api.login'],
             ['type' => 'post', 'route' => 'api/logout', 'controller' => 'Geekpack\Api\Http\Controllers\AuthController', 'class' => 'logout', 'name' => 'api.logout', 'middleware' => 'auth:sanctum'],
@@ -21,6 +21,10 @@ class GauthSeeder extends Seeder
             ['type' => 'get', 'route' => 'login', 'controller' => 'Geekpack\Api\Http\Controllers\AuthController', 'class' => 'showLogin', 'name' => 'login'],
             ['type' => 'post', 'route' => 'register', 'controller' => 'Geekpack\Api\Http\Controllers\AuthController', 'class' => 'showRegister', 'name' => 'register'],
             ['type' => 'get', 'route' => 'verifyemail', 'controller' => 'Geekpack\Api\Http\Controllers\AuthController', 'class' => 'showVerifyEmail', 'name' => 'verifyemail'],
-        ]);
+        ];
+
+        foreach ($routes as $routeData) {
+            ApiRoute::create($routeData);
+        }
     }
 }
