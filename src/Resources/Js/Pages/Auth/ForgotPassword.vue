@@ -1,40 +1,82 @@
 <template>
-    <Head title="Forgot Password" />
-    <div class="min-h-screen flex items-center justify-center bg-gray-100">
-      <div class="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold text-center text-gray-700">Forgot Password</h2>
-        <form>
-          <div class="mt-4">
-            <label class="block text-gray-700">Email</label>
-            <input type="email" class="w-full mt-2 p-2 border rounded-lg">
-          </div>
-          <div class="mt-6">
-            <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-lg">Send Reset Link</button>
-          </div>
-        </form>
-      </div>
+  <Head title="Forgot Password" />
+  <Toast />
+  <div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold text-center text-gray-700">Forgot Password</h2>
+      <form @submit.prevent="submit">
+        <div class="mt-4">
+          <label class="block text-gray-700">Email</label>
+          <input v-model="form.email" type="email" class="w-full mt-2 p-2 border rounded-lg">
+          <InputError class="mt-2" :message="form.errors.email" />
+        </div>
+        <div class="mt-6">
+          <button :disabled="form.isSubmitting" type="submit" class="w-full bg-blue-500 text-white p-2 rounded-lg">
+            <span v-if="form.isSubmitting">Sending...</span>
+            <span v-else>Send Reset Link</span>
+          </button>
+        </div>
+      </form>
     </div>
-  </template>
-  
-  <script setup>
-  import { Head, Link, useForm } from '@inertiajs/vue3';
-  /* import { reactive } from 'vue';
-  import axios from 'axios';
-  
-  const form = reactive({
-    email: ''
-  });
-  
-  const sendResetLink = async () => {
-    try {
-      await axios.post('/api/forgot-password', form);
-    } catch (error) {
-      console.error(error);
+  </div>
+</template>
+
+<script setup>
+import { Head, useForm } from '@inertiajs/vue3';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
+import InputError from '@/Components/Theme1/Components/InputError.vue';
+import axios from 'axios';
+
+const form = useForm({
+  email: '',
+  isSubmitting: false
+});
+
+const toast = useToast();
+
+const submit = async () => {
+  form.clearErrors();
+  form.isSubmitting = true;
+
+  try {
+    const response = await axios.post(route('api.forgot-password'), {
+      email: form.email
+    }, {
+      headers: {
+        'Accept': 'application/json',
+      }
+    });
+
+    toast.add({
+      severity: 'success',
+      summary: 'Forgot Password',
+      detail: response.data.message,
+      life: 5000
+    });
+
+    form.reset();
+    form.isSubmitting = false;
+  } catch (error) {
+    form.isSubmitting = false;
+
+    if (error.response && error.response.status === 422) {
+      form.errors = error.response.data.errors;
+    } else {
+      form.clearErrors();
+      toast.add({
+        severity: 'error',
+        summary: 'Forgot Password',
+        detail: error.response.data.message || 'An error occurred.',
+        life: 3000,
+      });
     }
-  }; */
-  </script>
-  
-  <style scoped>
-  /* Añadir estilos personalizados aquí */
-  </style>
-  
+  } finally {
+    form.isSubmitting = false;
+  }
+};
+</script>
+
+<style scoped>
+/* Añadir estilos personalizados aquí si es necesario */
+</style>
