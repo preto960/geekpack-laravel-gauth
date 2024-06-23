@@ -83,13 +83,21 @@ class GauthServiceProvider extends ServiceProvider
         );
 
         if ($this->app->runningInConsole()) {
-            $this->seed();
+            $this->app->booted(function () {
+                $this->seedDatabase();
+            });
         }
     }
 
-    protected function seed()
+    protected function seedDatabase()
     {
-        $this->app->make(GauthSeeder::class)->run();
+        // Verificar que la tabla exista antes de intentar insertar datos
+        if (Schema::hasTable('api_routes')) {
+            $this->app->make(GauthSeeder::class)->run();
+        } else {
+            // Opcional: mostrar un mensaje de advertencia si la tabla no está disponible
+            Log::warning('Tabla api_routes no encontrada. No se pudo ejecutar el seeder.');
+        }
     }
 }
 
