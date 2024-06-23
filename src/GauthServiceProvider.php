@@ -10,7 +10,8 @@ use Inertia\Inertia;
 use Illuminate\Contracts\Http\Kernel;
 use App\Http\Middleware\HandleInertiaRequests;
 use Geekpack\Gauth\Database\seeders\GauthSeeder;
-use Illuminate\Support\Facades\Lock;
+use Illuminate\Contracts\Cache\Lock;
+use Illuminate\Support\Facades\Cache;
 
 class GauthServiceProvider extends ServiceProvider
 {
@@ -88,7 +89,7 @@ class GauthServiceProvider extends ServiceProvider
 
     protected function seedDatabase()
     {
-        $lock = Lock::lock('seed-database-lock');
+        $lock = Cache::lock('seed-database-lock',10);
 
         if ($lock->get()) {
             if (Schema::hasTable('api_routes')) {
