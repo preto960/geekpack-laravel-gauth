@@ -70,6 +70,10 @@ class GauthServiceProvider extends ServiceProvider
             __DIR__.'/Database/migrations/' => database_path('migrations'),
         ], 'migrations'); 
 
+        $this->publishes([
+            __DIR__.'/Database/Seeders/GauthSeeder.php' => database_path('seeders/GauthSeeder.php'),
+        ], 'seeders');
+
         $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
 
         \Illuminate\Support\Facades\Event::listen(
@@ -78,11 +82,17 @@ class GauthServiceProvider extends ServiceProvider
         );
 
         if ($this->app->runningInConsole()) {
-            $this->commands([
-                \Geekpack\Gauth\Database\seeders\GauthSeeder::class
-            ]);
+            $this->app->booted(function () {
+                $this->seedRoutes();
+            });
         }
-
+    }
+    
+    protected function seedRoutes()
+    {
+        // Ejecuta el seeder
+        $seeder = new \Geekpack\Gauth\Database\Seeders\GauthSeeder();
+        $seeder->run();
     }
 }
 
