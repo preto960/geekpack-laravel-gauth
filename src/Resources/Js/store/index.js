@@ -5,6 +5,7 @@ export default new createStore({
   state: {
     data: null,
     props: null,
+    theme: "light"
   },
   mutations: {
     setUser(state, data) {
@@ -13,6 +14,9 @@ export default new createStore({
     setProps(state, props) {
         state.props = props;
     },
+    setThemeToggle(state, theme) {
+      state.theme = theme;
+  },
   },
   plugins: [createPersistedState()],
 });

@@ -17,12 +17,15 @@
 <script setup>
 import { ref,defineProps } from 'vue';
 import Header from '../Component/Header.vue';
+import { useStore } from 'vuex';
 
 const props = defineProps({
   system: { type: Object }
 });
 
-const theme = ref('light');
+const store = useStore();
+
+const theme = ref(store.state.theme);
 
 const toggleAuth = (authState) => {
   isAuthenticated.value = authState;

@@ -42,6 +42,7 @@
 import { ref, defineProps, defineEmits } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
 import ThemeToggleButton from './ThemeToggleButton.vue';
+import { useStore } from 'vuex';
 
 const props = defineProps({
   isAuthenticated: Boolean,
@@ -50,11 +51,13 @@ const props = defineProps({
   system: { type: Object }
 });
 
+const store = useStore();
+
 const emit = defineEmits(['toggleAuth']);
 
 const dropdownOpen = ref(false);
 
-const theme = ref('light');
+const theme = ref(store.state.theme);
 
 const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value;
