@@ -16,7 +16,7 @@
 
 <script setup>
 import { ref,defineProps } from 'vue';
-import Header from '../Components/Header.vue';
+import Header from '../Component/Header.vue';
 
 const props = defineProps({
   system: { type: Object }
