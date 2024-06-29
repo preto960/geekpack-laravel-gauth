@@ -1,9 +1,7 @@
 <template>
-  <div :class="theme">
+  <div>
     <Header
-      :theme="theme"
       @toggleAuth="toggleAuth"
-      @toggleTheme="toggleTheme"
       :system="system"
     />
     <main class="flex flex-col items-center justify-center p-4 min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
@@ -17,23 +15,13 @@
 <script setup>
 import { ref,defineProps } from 'vue';
 import Header from '../Component/Header.vue';
-import { useStore } from 'vuex';
 
 const props = defineProps({
   system: { type: Object }
 });
 
-const store = useStore();
-
-const theme = ref(store.state.theme);
-
 const toggleAuth = (authState) => {
   isAuthenticated.value = authState;
-};
-
-const toggleTheme = (newTheme) => {
-  theme.value = newTheme;
-  document.documentElement.classList.toggle('dark', theme.value === 'dark');
 };
 
 const getStarted = () => {

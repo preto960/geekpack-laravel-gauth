@@ -33,7 +33,7 @@
           </Link>
         </div>
       </div>
-      <ThemeToggleButton :theme="theme" @toggle-theme="toggleTheme" />
+      <ThemeToggleButton />
     </div>
   </header>
 </template>
@@ -42,7 +42,6 @@
 import { ref, defineProps, defineEmits } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
 import ThemeToggleButton from './ThemeToggleButton.vue';
-import { useStore } from 'vuex';
 
 const props = defineProps({
   isAuthenticated: Boolean,
@@ -51,13 +50,9 @@ const props = defineProps({
   system: { type: Object }
 });
 
-const store = useStore();
-
 const emit = defineEmits(['toggleAuth']);
 
 const dropdownOpen = ref(false);
-
-const theme = ref(store.state.theme);
 
 const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value;
@@ -71,11 +66,6 @@ const logout = () => {
   emit('toggleAuth', false);
 };
 
-
-const toggleTheme = () => {
-  theme.value = theme.value === 'dark' ? 'light' : 'dark';
-  document.documentElement.classList.toggle('dark', theme.value === 'dark');
-};
 </script>
 
 <style scoped>

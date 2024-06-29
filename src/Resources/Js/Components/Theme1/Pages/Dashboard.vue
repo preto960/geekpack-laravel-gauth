@@ -51,8 +51,6 @@ const user = ref({
 
 const store = useStore();
 
-const theme = ref(store.state.theme);
-
 onMounted(() => {
   if (route.query.user) {
     user.value = JSON.parse(route.query.user);
@@ -63,9 +61,6 @@ const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
 };
 
-const toggleTheme = (newTheme) => {
-  theme.value = newTheme;
-};
 </script>
 
 <style scoped>

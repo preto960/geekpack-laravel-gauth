@@ -4,7 +4,7 @@
   <div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
     <div class="max-w-md w-full bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
       <div class="flex justify-end mb-4">
-        <ThemeToggleButton :theme="theme" @toggle-theme="toggleTheme" />
+        <ThemeToggleButton />
       </div>
       <h2 class="text-2xl font-semibold text-center text-gray-700 dark:text-gray-200">Login</h2>
       <form @submit.prevent="submit">
@@ -74,8 +74,6 @@ const showPassword = ref(false);
 
 const toast = useToast();
 
-const theme = ref(store.state.theme);
-
 const submit = async () => {
   form.clearErrors();
   form.isSubmitting = true;
@@ -122,11 +120,6 @@ const submit = async () => {
 
 const toggleShowPassword = () => {
   showPassword.value = !showPassword.value;
-};
-
-const toggleTheme = () => {
-  theme.value = theme.value === 'dark' ? 'light' : 'dark';
-  document.documentElement.classList.toggle('dark', theme.value === 'dark');
 };
 </script>
 

@@ -10,19 +10,15 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-const props = defineProps({
-  theme: {
-    type: String,
-    required: true
-  }
-});
-
-const emit = defineEmits(['toggle-theme']);
+const store = useStore();
+const theme = computed(() => store.state.theme);
 
 const toggleTheme = () => {
-  emit('toggle-theme');
+  const newTheme = theme.value === 'dark' ? 'light' : 'dark';
+  store.commit('setThemeToggle', newTheme);
 };
 </script>
 

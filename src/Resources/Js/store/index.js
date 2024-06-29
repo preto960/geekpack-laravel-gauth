@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
-export default new createStore({
+export default createStore({
   state: {
     data: null,
     props: null,
@@ -12,11 +12,12 @@ export default new createStore({
       state.data = data;
     },
     setProps(state, props) {
-        state.props = props;
+      state.props = props;
     },
     setThemeToggle(state, theme) {
       state.theme = theme;
-  },
+      document.documentElement.setAttribute('data-theme', theme); // Actualiza el atributo de tema en el HTML
+    },
   },
   plugins: [createPersistedState()],
 });
