@@ -57,7 +57,7 @@
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
-import InputError from '../Components/InputError.vue';
+import InputError from '../../Component/InputError.vue';
 import { ref } from 'vue';
 import axios from 'axios';
 

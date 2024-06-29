@@ -15,7 +15,18 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`./Components/${template}/Pages/${name}.vue`, import.meta.glob(`./Components/${template}/Pages/**/*.vue`)),
+    resolve: (name) => {
+        const props = JSON.parse(app.dataset.page);
+        const template = props.props['template'];
+        const componentPath = `./Components/${template}/Pages/${name}.vue`;
+        const components = import.meta.glob('./Components/**/*.vue');
+
+        if (!components[componentPath]) {
+            throw new Error(`Page not found: ${componentPath}`);
+        }
+
+        return components[componentPath]();
+    },
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)

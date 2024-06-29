@@ -41,7 +41,7 @@
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
-import ThemeToggleButton from './Components/ThemeToggleButton.vue';
+import ThemeToggleButton from './ThemeToggleButton.vue';
 
 const props = defineProps({
   isAuthenticated: Boolean,
