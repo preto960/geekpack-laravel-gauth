@@ -50,7 +50,7 @@ const props = defineProps({
   system: { type: Object }
 });
 
-const emit = defineEmits(['toggleAuth', 'toggleTheme']);
+const emit = defineEmits(['toggleAuth']);
 
 const dropdownOpen = ref(false);
 
