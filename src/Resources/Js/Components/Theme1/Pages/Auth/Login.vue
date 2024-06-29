@@ -58,7 +58,7 @@ import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
 import Checkbox from '../../Component/Checkbox.vue';
 import InputError from '../../Component/InputError.vue';
-import ThemeToggleButton from '../Component/ThemeToggleButton.vue';
+import ThemeToggleButton from '../../Component/ThemeToggleButton.vue';
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import axios from 'axios';
