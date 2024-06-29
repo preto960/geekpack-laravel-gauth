@@ -1,6 +1,7 @@
 <template>
   <Head title="Login" />
   <Toast />
+  <ThemeToggleButton :theme="theme" @toggle-theme="toggleTheme" />
   <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
       <h2 class="text-2xl font-semibold text-center text-gray-700">Login</h2>
@@ -57,6 +58,7 @@ import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
 import Checkbox from '../../Component/Checkbox.vue';
 import InputError from '../../Component/InputError.vue';
+import ThemeToggleButton from '../Component/ThemeToggleButton.vue';
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import axios from 'axios';
@@ -73,6 +75,8 @@ const store = useStore();
 const showPassword = ref(false);
 
 const toast = useToast();
+
+const theme = ref(store.state.theme);
 
 const submit = async () => {
   form.clearErrors();
@@ -120,6 +124,11 @@ const submit = async () => {
 
 const toggleShowPassword = () => {
   showPassword.value = !showPassword.value;
+};
+
+const toggleTheme = () => {
+  theme.value = theme.value === 'dark' ? 'light' : 'dark';
+  document.documentElement.classList.toggle('dark', theme.value === 'dark');
 };
 </script>
 

@@ -33,6 +33,7 @@ const toggleAuth = (authState) => {
 
 const toggleTheme = (newTheme) => {
   theme.value = newTheme;
+  document.documentElement.classList.toggle('dark', theme.value === 'dark');
 };
 
 const getStarted = () => {
