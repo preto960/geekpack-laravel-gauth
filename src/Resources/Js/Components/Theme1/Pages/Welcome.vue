@@ -1,18 +1,19 @@
 <template>
   <Head title="Home" />
   <div>
-    <!-- {{ $page }} -->
-    <component v-if="ComponentLoaded" :is="LandingPage" :system="props"/>
-    <div v-else class="flex flex-col items-center justify-center h-screen">
+    <!-- {{ $page }} --><!-- v-if="ComponentLoaded" -->
+    <component  :is="LandingPage" :system="props"/>
+    <!-- <div v-else class="flex flex-col items-center justify-center h-screen">
       <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
       <div class="mt-4 text-lg text-gray-900 animate-pulse">loading...</div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup>
   import { defineProps, ref, onMounted, markRaw } from 'vue';
   import { Head } from '@inertiajs/vue3';
+  import LandingPage from './LandingPage.vue';
 
 const props = defineProps({
   canLogin: Boolean,
@@ -24,7 +25,7 @@ const props = defineProps({
   template: { type: String, required: true },
 });
 
-const LandingPage = ref(null);
+/* const LandingPage = ref(null);
 const ComponentLoaded = ref(false);
 
 import(`../Components/${props.template}/LandingPage.vue`)
@@ -34,7 +35,7 @@ import(`../Components/${props.template}/LandingPage.vue`)
   })
   .catch(error => {
     console.error(`Error al cargar el componente LandingPage para el tema '${props.template}':`, error);
-  });
+  }); */
 
 </script>
 

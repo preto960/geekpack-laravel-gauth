@@ -25,7 +25,7 @@
 import { Head, useForm } from '@inertiajs/vue3';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
-import InputError from '@/Components/Theme1/Components/InputError.vue';
+import InputError from '../Components/InputError.vue';
 import axios from 'axios';
 
 const form = useForm({
