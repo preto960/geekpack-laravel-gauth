@@ -10,6 +10,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import PrimeVue from 'primevue/config';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
+import store from "./store";
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -17,9 +18,17 @@ createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
         const props = JSON.parse(app.dataset.page);
-        const template = props.props['template'];
-        const componentPath = `./Components/${template}/Pages/${name}.vue`;
-        const components = import.meta.glob('./Components/**/*.vue');
+    
+        if (!store.state.props) {
+            store.commit('setProps', props.props);
+        }
+
+        if (!store.state.props.template) {
+            throw new Error('Template is not defined in store.props');
+        }
+
+        const componentPath = `./Components/${store.state.props.template}/Pages/${name}.vue`;
+        const components = import.meta.glob(`./Components/**/*.vue`);
 
         if (!components[componentPath]) {
             throw new Error(`Page not found: ${componentPath}`);
@@ -29,6 +38,7 @@ createInertiaApp({
     },
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
+            .use(store)
             .use(plugin)
             .use(ZiggyVue)
             .use(PrimeVue, { 

@@ -58,6 +58,7 @@ import { useToast } from 'primevue/usetoast';
 import Checkbox from '../../Component/Checkbox.vue';
 import InputError from '../../Component/InputError.vue';
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 import axios from 'axios';
 
 const form = useForm({
@@ -66,6 +67,8 @@ const form = useForm({
   remember: false,
   isSubmitting: false
 });
+
+const store = useStore();
 
 const showPassword = ref(false);
 
@@ -94,7 +97,8 @@ const submit = async () => {
     form.reset();
 
     const userLogin = response.data;
-    const dashboardUrl = route('dashboard', { userLogin });
+    store.commit('setUser', userLogin);
+    const dashboardUrl = route('dashboard');
     window.location.href = dashboardUrl;
 
   } catch (error) {

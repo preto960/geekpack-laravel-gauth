@@ -18,6 +18,9 @@
         "vue": "^3.4.29",
         "autoprefixer": "^10.4.19",
         "primeicons": "^7.0.0",
-        "primevue": "^3.52.0"
+        "primevue": "^3.52.0",
+        "vue-router": "^4.4.0",
+        "vuex": "^4.1.0",
+        "vuex-persistedstate": "^4.1.0"
     }
 }

@@ -39,7 +39,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import ThemeToggleButton from './ThemeToggleButton.vue';
+import ThemeToggleButton from '../Component/ThemeToggleButton.vue';
 
 const isDropdownOpen = ref(false);
 const route = useRoute();

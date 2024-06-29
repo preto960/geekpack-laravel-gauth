@@ -41,9 +41,8 @@ class GauthSeeder extends Seeder
             [
                 'type' => 'get', 
                 'route' => 'dashboard', 
-                'functions' => "return Inertia::render('Dashboard')",
-                /* 'controller' => 'Geekpack\Gauth\Http\Controllers\DashboardController', 
-                'class' => 'index',  */
+                'controller' => 'Geekpack\Gauth\Http\Controllers\DashboardController', 
+                'class' => 'index', 
                 'name' => 'dashboard'
             ],
             [
