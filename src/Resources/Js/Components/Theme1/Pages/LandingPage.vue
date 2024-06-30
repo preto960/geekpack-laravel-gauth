@@ -26,10 +26,6 @@ const toggleAuth = (authState) => {
   isAuthenticated.value = authState;
 };
 
-const getStarted = () => {
-  // Lógica para comenzar
-};
-
 </script>
 
 <style scoped>

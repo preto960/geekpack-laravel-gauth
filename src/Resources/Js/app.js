@@ -31,14 +31,7 @@ createInertiaApp({
             throw new Error('Template is not defined in store.props');
         }
 
-        //const componentPath = `./Components/${store.state.props.template}/Pages/${name}.vue`;
-        //const components = import.meta.glob(`./Components/**/*.vue`);
-
-        //if (!components[componentPath]) {
-        //    throw new Error(`Page not found: ${componentPath}`);
-        //}
-
-        return /* components[componentPath]() */resolvePageComponent(`./Components/${store.state.props.template}/Pages/${name}.vue`, import.meta.glob(`./Components/**/*.vue`));
+        return resolvePageComponent(`./Components/${store.state.props.template}/Pages/${name}.vue`, import.meta.glob(`./Components/**/*.vue`));
     },
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })

@@ -71,7 +71,7 @@ const menuItems = [
   // Añade más elementos de menú y submenús según sea necesario
 ];
 
-function toggleSubMenu(index) {
+const toggleSubMenu = (index) => {
   if (activeSubMenu.value === index) {
     activeSubMenu.value = null;
   } else {

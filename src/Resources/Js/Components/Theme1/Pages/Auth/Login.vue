@@ -90,7 +90,7 @@ const submit = async () => {
     toast.add({
       severity: 'success',
       summary: 'Success',
-      detail: response.data.message,
+      detail: 'Successful Login',
       life: 5000,
     });
     form.reset();
@@ -98,8 +98,6 @@ const submit = async () => {
     setTimeout(() => {
       const userLogin = response.data;
       store.commit('setUser', userLogin);
-      /* const dashboardUrl = route('dashboard');
-      window.location.href = dashboardUrl; */
       router.replace('/dashboard');
     }, 5000);
   } catch (error) {

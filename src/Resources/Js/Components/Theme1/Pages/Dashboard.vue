@@ -1,61 +1,14 @@
 <template>
   <Head title="Dashboard" />
   <Toast />
-  <div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex">
-    <!-- Aside Menu -->
-    <!-- <aside :class="{'w-64': !isMinimized, 'w-16': isMinimized}" class="bg-white dark:bg-gray-800 shadow-lg">
-      
-      <div class="flex items-center justify-between p-4">
-        <div class="flex items-center">
-          <img src="https://via.placeholder.com/150" alt="Logo" class="h-8 w-auto">
-        </div>
-      </div>
-
-      
-      <nav class="px-2 py-4">
-        <ul>
-          <li class="relative" v-for="(item, index) in menuItems" :key="index">
-            <template v-if="item.subMenu">
-              <button @click="toggleSubMenu(index)" class="flex items-center space-x-2 px-4 py-2 text-sm font-medium w-full focus:outline-none dark:text-white">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-                <svg v-if="!isMinimized" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-                <span v-if="!isMinimized">{{ item.title }}</span>
-              </button>
-            </template>
-            <template v-else>
-              <button class="flex items-center space-x-2 px-4 py-2 text-sm font-medium w-full focus:outline-none dark:text-white">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-                <span v-if="!isMinimized">{{ item.title }}</span>
-              </button>
-            </template>
-            
-            <transition v-if="item.subMenu" name="fade">
-              <ul v-if="activeSubMenu === index && item.subMenu" class="ml-4">
-                <li v-for="(subItem, subIndex) in item.subMenu" :key="subIndex">
-                  <Link :to="subItem.route" class="flex items-center space-x-2 px-4 py-2 text-sm font-medium dark:text-white">
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                    <span v-if="!isMinimized">{{subItem.title}}</span>
-                  </Link>
-                </li>
-              </ul>
-            </transition>
-          </li>
-        </ul>
-      </nav>
-    </aside> -->
-
+  <div v-if="ComponentLoaded" class="flex flex-col items-center justify-center h-screen">
+    <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+    <div class="mt-4 text-lg text-gray-900 animate-pulse">loading...</div>
+  </div>
+  <div v-else class="min-h-screen bg-gray-100 dark:bg-gray-900 flex">
     <Sidebar :isMinimized="isMinimized" />
-    <!-- Contenido Principal -->
+
     <div class="flex-1">
-      <!-- Header -->
       <header class="bg-white dark:bg-gray-800 shadow">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div class="flex items-center space-x-4">
@@ -76,14 +29,11 @@
         </div>
       </header>
 
-      <!-- Main Content -->
       <main>
         <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <!-- Replace with your content -->
           <div class="px-4 py-6 sm:px-0">
             <div class="border-4 border-dashed border-gray-200 dark:border-gray-700 rounded-lg h-96"></div>
           </div>
-          <!-- /End replace -->
         </div>
       </main>
     </div>
@@ -100,31 +50,15 @@ import Sidebar from '../Component/Sidebar.vue';
 
 const toast = useToast();
 const isMinimized = ref(false);
-/* const activeSubMenu = ref(null);
+const ComponentLoaded = ref(true);
 
-const menuItems = [
-  { title: 'Dashboard', route: '/' },
-  {
-    title: 'Usuarios',
-    subMenu: [
-      { title: 'Listado', route: '/users' },
-      { title: 'Agregar', route: '/users/add' }
-    ]
-  },
-  // Añade más elementos de menú y submenús según sea necesario
-];*/
-
-function toggleSidebar() {
+const toggleSidebar = () => {
   isMinimized.value = !isMinimized.value;
 }
 
-/* function toggleSubMenu(index) {
-  if (activeSubMenu.value === index) {
-    activeSubMenu.value = null;
-  } else {
-    activeSubMenu.value = index;
-  }
-} */
+onMounted(() => {
+  ComponentLoaded.value = false;
+});
 
 </script>
 

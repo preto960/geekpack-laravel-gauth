@@ -2,17 +2,16 @@
   <Head title="Home" />
   <div>
     <Toast />
-    <!-- {{ $page }} --><!-- v-if="ComponentLoaded" -->
-    <component  :is="LandingPage" :system="props"/>
-    <!-- <div v-else class="flex flex-col items-center justify-center h-screen">
+    <div v-if="ComponentLoaded" class="flex flex-col items-center justify-center h-screen">
       <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
       <div class="mt-4 text-lg text-gray-900 animate-pulse">loading...</div>
-    </div> -->
+    </div>
+    <component v-else :is="LandingPage" :system="props"/>
   </div>
 </template>
 
 <script setup>
-  import { defineProps } from 'vue';
+  import { defineProps, onMounted } from 'vue';
   import { Head } from '@inertiajs/vue3';
   import LandingPage from './LandingPage.vue';
 
@@ -26,17 +25,11 @@ const props = defineProps({
   template: { type: String, required: true },
 });
 
-/* const LandingPage = ref(null);
-const ComponentLoaded = ref(false);
+const ComponentLoaded = ref(true);
 
-import(`../Components/${props.template}/LandingPage.vue`)
-  .then(module => {
-    LandingPage.value = markRaw(module.default);
-    ComponentLoaded.value = true;
-  })
-  .catch(error => {
-    console.error(`Error al cargar el componente LandingPage para el tema '${props.template}':`, error);
-  }); */
+onMounted(() => {
+  ComponentLoaded.value = false;
+});
 
 </script>
 
