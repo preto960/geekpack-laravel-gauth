@@ -6,10 +6,10 @@
         <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-200">Dashboard</h1>
         <div class="flex items-center space-x-4">
           <ThemeToggleButton />
-          <div class="relative">
+          <!-- <div class="relative">
             <button @click="toggleDropdown" class="flex items-center space-x-2 focus:outline-none">
               <img :src="user.image" alt="User Image" class="w-8 h-8 rounded-full">
-              <span class="font-medium text-gray-700 dark:text-gray-300">{{ store.data.user.name }}</span>
+              <span class="font-medium text-gray-700 dark:text-gray-300">{{ user.name }}</span>
               <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
@@ -19,7 +19,8 @@
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
             </div>
-          </div>
+          </div> -->
+          <UserDropdown />
         </div>
       </div>
     </header>
@@ -40,26 +41,8 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import ThemeToggleButton from '../Component/ThemeToggleButton.vue';
-import { useStore } from 'vuex';
+import UserDropdown from '../Component/UserDropdown.vue';
 
-const isDropdownOpen = ref(false);
-const route = useRoute();
-const user = ref({
-  name: '',
-  image: '',
-});
-
-const store = useStore();
-
-onMounted(() => {
-  if (route.query.user) {
-    user.value = JSON.parse(route.query.user);
-  }
-});
-
-const toggleDropdown = () => {
-  isDropdownOpen.value = !isDropdownOpen.value;
-};
 
 </script>
 

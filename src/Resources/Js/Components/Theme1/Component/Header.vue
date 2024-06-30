@@ -2,7 +2,7 @@
   <header class="flex justify-between items-center p-4 bg-white dark:bg-gray-800">
     <div class="text-xl font-bold dark:text-white">{{system.canSystemName}}</div>
     <div class="flex items-center space-x-4" v-if="system.canLogin">
-      <Link v-if="!system.canAuth"
+      <!-- <Link v-if="!system.canAuth"
           :href="route('login')"
           class="rounded-md px-3 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
       >
@@ -32,8 +32,9 @@
               Log Out
           </Link>
         </div>
-      </div>
+      </div> -->
       <ThemeToggleButton />
+      <UserDropdown />
     </div>
   </header>
 </template>
@@ -42,6 +43,7 @@
 import { ref, defineProps, defineEmits } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
 import ThemeToggleButton from './ThemeToggleButton.vue';
+import UserDropdown from './UserDropdown.vue';
 
 const props = defineProps({
   isAuthenticated: Boolean,
@@ -50,13 +52,15 @@ const props = defineProps({
   system: { type: Object }
 });
 
+const store = useStore();
+
 const emit = defineEmits(['toggleAuth']);
 
 const dropdownOpen = ref(false);
 
-const toggleDropdown = () => {
+/* const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value;
-};
+}; */
 
 const register = () => {
   emit('toggleAuth', true);
