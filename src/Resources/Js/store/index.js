@@ -16,7 +16,7 @@ export default createStore({
     },
     setThemeToggle(state, theme) {
       state.theme = theme;
-      document.documentElement.setAttribute('data-theme', theme); // Actualiza el atributo de tema en el HTML
+      document.documentElement.classList.toggle('dark', theme === 'dark');
     },
   },
   plugins: [createPersistedState()],

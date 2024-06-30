@@ -1,24 +1,27 @@
 <template>
   <Head title="Register" />
   <Toast />
-  <div class="min-h-screen flex items-center justify-center bg-gray-100">
-    <div class="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
-      <h2 class="text-2xl font-semibold text-center text-gray-700">Register</h2>
+  <div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <div class="max-w-md w-full bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <div class="flex justify-end mb-4">
+        <ThemeToggleButton />
+      </div>
+      <h2 class="text-2xl font-semibold text-center text-gray-700 dark:text-gray-200">Register</h2>
       <form @submit.prevent="submit">
         <div class="mt-4">
-          <label class="block text-gray-700">Name</label>
-          <input v-model="form.name" type="text" class="w-full mt-2 p-2 border rounded-lg">
+          <label class="block text-gray-700 dark:text-gray-300">Name</label>
+          <input v-model="form.name" type="text" class="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:text-gray-300">
           <InputError class="mt-2" :message="form.errors.name" />
         </div>
         <div class="mt-4">
-          <label class="block text-gray-700">Email</label>
-          <input v-model="form.email" type="email" class="w-full mt-2 p-2 border rounded-lg">
+          <label class="block text-gray-700 dark:text-gray-300">Email</label>
+          <input v-model="form.email" type="email" class="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:text-gray-300">
           <InputError class="mt-2" :message="form.errors.email" />
         </div>
         <div class="mt-4">
-          <label class="block text-gray-700">Password</label>
+          <label class="block text-gray-700 dark:text-gray-300">Password</label>
           <div class="relative">
-            <input v-model="form.password" :type="showPassword ? 'text' : 'password'" class="w-full mt-2 p-2 border rounded-lg">
+            <input v-model="form.password" :type="showPassword ? 'text' : 'password'" class="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:text-gray-300">
             <button type="button" @click="toggleShowPassword" class="absolute inset-y-0 right-0 px-3 pt-2 flex items-center">
               <i class="pi" :class="showPassword ? 'pi-eye-slash' : 'pi-eye'"></i>
             </button>
@@ -26,9 +29,9 @@
           <InputError class="mt-2" :message="form.errors.password" />
         </div>
         <div class="mt-4">
-          <label class="block text-gray-700">Confirm Password</label>
+          <label class="block text-gray-700 dark:text-gray-300">Confirm Password</label>
           <div class="relative">
-            <input v-model="form.password_confirmation" :type="showConfirmationPassword ? 'text' : 'password'" class="w-full mt-2 p-2 border rounded-lg">
+            <input v-model="form.password_confirmation" :type="showConfirmationPassword ? 'text' : 'password'" class="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:text-gray-300">
             <button type="button" @click="toggleShowConfirmationPassword" class="absolute inset-y-0 right-0 px-3 pt-2 flex items-center">
               <i class="pi" :class="showConfirmationPassword ? 'pi-eye-slash' : 'pi-eye'"></i>
             </button>
@@ -42,10 +45,8 @@
           </button>
         </div>
         <div class="mt-6">Already have an account? 
-          <Link :href="route('login')"
-            class="rounded-md px-3 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-          >
-          Sign in instead
+          <Link :href="route('login')" class="rounded-md px-3 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+            Sign in instead
           </Link>
         </div>
       </form>
@@ -58,6 +59,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
 import InputError from '../../Component/InputError.vue';
+import ThemeToggleButton from '../../Component/ThemeToggleButton.vue';
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -105,7 +107,7 @@ const submit = async () => {
       form.clearErrors();
       toast.add({
         severity: 'error',
-        summary: 'Login Failed',
+        summary: 'Registration Failed',
         detail: error.response.data.message || 'An error occurred.',
         life: 3000,
       });
@@ -118,6 +120,7 @@ const submit = async () => {
 const toggleShowPassword = () => {
   showPassword.value = !showPassword.value;
 };
+
 const toggleShowConfirmationPassword = () => {
   showConfirmationPassword.value = !showConfirmationPassword.value;
 };

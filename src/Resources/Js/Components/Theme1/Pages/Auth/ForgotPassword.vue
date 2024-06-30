@@ -1,13 +1,16 @@
 <template>
   <Head title="Forgot Password" />
   <Toast />
-  <div class="min-h-screen flex items-center justify-center bg-gray-100">
-    <div class="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
-      <h2 class="text-2xl font-semibold text-center text-gray-700">Forgot Password</h2>
+  <div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <div class="max-w-md w-full bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <div class="flex justify-end mb-4">
+        <ThemeToggleButton />
+      </div>
+      <h2 class="text-2xl font-semibold text-center text-gray-700 dark:text-gray-200">Forgot Password</h2>
       <form @submit.prevent="submit">
         <div class="mt-4">
-          <label class="block text-gray-700">Email</label>
-          <input v-model="form.email" type="email" class="w-full mt-2 p-2 border rounded-lg">
+          <label class="block text-gray-700 dark:text-gray-300">Email</label>
+          <input v-model="form.email" type="email" class="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:text-gray-300">
           <InputError class="mt-2" :message="form.errors.email" />
         </div>
         <div class="mt-6">
@@ -26,6 +29,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
 import InputError from '../../Component/InputError.vue';
+import ThemeToggleButton from '../../Component/ThemeToggleButton.vue';
 import axios from 'axios';
 
 const form = useForm({

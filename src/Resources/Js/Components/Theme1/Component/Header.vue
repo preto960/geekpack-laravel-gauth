@@ -1,6 +1,6 @@
 <template>
   <header class="flex justify-between items-center p-4 bg-white dark:bg-gray-800">
-    <div class="text-xl font-bold">{{system.canSystemName}}</div>
+    <div class="text-xl font-bold dark:text-white">{{system.canSystemName}}</div>
     <div class="flex items-center space-x-4" v-if="system.canLogin">
       <Link v-if="!system.canAuth"
           :href="route('login')"

@@ -15,7 +15,7 @@ import store from "./store";
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 const theme = store.state.theme;
-document.documentElement.setAttribute('data-theme', theme);
+document.documentElement.classList.toggle('dark', theme === 'dark');
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
