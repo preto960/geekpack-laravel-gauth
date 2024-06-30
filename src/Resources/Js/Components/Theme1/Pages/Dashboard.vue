@@ -24,7 +24,7 @@
           </div>
           <div class="flex items-center space-x-4">
             <ThemeToggleButton />
-            <UserDropdown />
+            <UserDropdown @ComponentLoaded="handleComponentLoaded"/>
           </div>
         </div>
       </header>
@@ -59,6 +59,10 @@ const toggleSidebar = () => {
 onMounted(() => {
   ComponentLoaded.value = false;
 });
+
+const handleComponentLoaded = (value) => {
+  ComponentLoaded.value = value;
+};
 
 </script>
 

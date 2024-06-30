@@ -27,7 +27,7 @@
   </template>
   
   <script setup>
-  import { ref, onMounted, onBeforeUnmount } from 'vue';
+  import { ref, onMounted, onBeforeUnmount, defineEmits } from 'vue';
   import { Link, router } from '@inertiajs/vue3';
   import { useStore } from 'vuex';
   import Avatar from 'primevue/avatar';
@@ -38,6 +38,8 @@
   const toast = useToast();
   const dropdownOpen = ref(false);
   const dropdownRef = ref(null);
+
+  const emit = defineEmits(['ComponentLoaded']);
   
   const user = (store.state.data !== null) ? store.state.data.user : null;
   const isLoggedIn = (store.state.data !== null) ? store.state.data.user : null;
@@ -55,6 +57,7 @@
   const handleClick = async (action) => {
     if (action === 'logout') {
       await logout();
+      emit('ComponentLoaded', true);
     }
     dropdownOpen.value = false;
   }

@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-  import { defineProps, onMounted } from 'vue';
+  import { defineProps, onMounted, ref } from 'vue';
   import { Head } from '@inertiajs/vue3';
   import LandingPage from './LandingPage.vue';
 
@@ -28,12 +28,14 @@ const props = defineProps({
 const ComponentLoaded = ref(true);
 
 onMounted(() => {
-  ComponentLoaded.value = false;
+  setTimeout(() => {
+    ComponentLoaded.value = false;
+  }, 3000);
 });
 
 </script>
 
   
 <style>
-  @import 'tailwindcss/tailwind.css';
+  /* @import 'tailwindcss/tailwind.css'; */
 </style>

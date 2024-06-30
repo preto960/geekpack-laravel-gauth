@@ -1,7 +1,11 @@
 <template>
   <Head title="Login" />
   <Toast />
-  <div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+  <div v-if="ComponentLoaded" class="flex flex-col items-center justify-center h-screen">
+    <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+    <div class="mt-4 text-lg text-gray-900 animate-pulse">loading...</div>
+  </div>
+  <div v-else class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
     <div class="max-w-md w-full bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
       <div class="flex justify-end mb-4">
         <ThemeToggleButton />
@@ -67,6 +71,8 @@ const form = useForm({
   isSubmitting: false
 });
 
+const ComponentLoaded = ref(false);
+
 const store = useStore();
 
 const showPassword = ref(false);
@@ -74,6 +80,7 @@ const showPassword = ref(false);
 const toast = useToast();
 
 const submit = async () => {
+  ComponentLoaded.value = true;
   form.clearErrors();
   form.isSubmitting = true;
   try {
@@ -91,16 +98,17 @@ const submit = async () => {
       severity: 'success',
       summary: 'Success',
       detail: 'Successful Login',
-      life: 5000,
+      life: 2000,
     });
     form.reset();
-    console.log(response);
+    
     setTimeout(() => {
       const userLogin = response.data;
       store.commit('setUser', userLogin);
       router.replace('/dashboard');
-    }, 5000);
+    }, 3000);
   } catch (error) {
+    ComponentLoaded.value = false;
     if (error.response && error.response.status === 422) {
       form.errors = error.response.data.errors;
     } else {
