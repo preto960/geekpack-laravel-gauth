@@ -1,17 +1,13 @@
 <template>
-  <Head title="Dashboard" />
-  <Toast />
-  <div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex">
-    <!-- Aside Menu -->
-    <!-- <aside :class="{'w-64': !isMinimized, 'w-16': isMinimized}" class="bg-white dark:bg-gray-800 shadow-lg">
-      
+    <aside :class="asideClasses" class="bg-white dark:bg-gray-800 shadow-lg">
+      <!-- Logo y toggle -->
       <div class="flex items-center justify-between p-4">
         <div class="flex items-center">
           <img src="https://via.placeholder.com/150" alt="Logo" class="h-8 w-auto">
         </div>
       </div>
 
-      
+      <!-- Menú -->
       <nav class="px-2 py-4">
         <ul>
           <li class="relative" v-for="(item, index) in menuItems" :key="index">
@@ -34,7 +30,7 @@
                 <span v-if="!isMinimized">{{ item.title }}</span>
               </button>
             </template>
-            
+            <!-- Submenú -->
             <transition v-if="item.subMenu" name="fade">
               <ul v-if="activeSubMenu === index && item.subMenu" class="ml-4">
                 <li v-for="(subItem, subIndex) in item.subMenu" :key="subIndex">
@@ -50,57 +46,18 @@
           </li>
         </ul>
       </nav>
-    </aside> -->
-
-    <Sidebar :isMinimized="isMinimized" />
-    <!-- Contenido Principal -->
-    <div class="flex-1">
-      <!-- Header -->
-      <header class="bg-white dark:bg-gray-800 shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <div class="flex items-center space-x-4">
-            <button @click="toggleSidebar" class="text-gray-400 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-200 focus:outline-none focus:text-gray-900 dark:focus:text-gray-200">
-              <svg v-if="isMinimized" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-              </svg>
-              <svg v-else class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-200">Dashboard</h1>
-          </div>
-          <div class="flex items-center space-x-4">
-            <ThemeToggleButton />
-            <UserDropdown />
-          </div>
-        </div>
-      </header>
-
-      <!-- Main Content -->
-      <main>
-        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <!-- Replace with your content -->
-          <div class="px-4 py-6 sm:px-0">
-            <div class="border-4 border-dashed border-gray-200 dark:border-gray-700 rounded-lg h-96"></div>
-          </div>
-          <!-- /End replace -->
-        </div>
-      </main>
-    </div>
-  </div>
+    </aside>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { useToast } from 'primevue/usetoast';
-import ThemeToggleButton from '../Component/ThemeToggleButton.vue';
-import UserDropdown from '../Component/UserDropdown.vue';
-import Sidebar from '../Component/Sidebar.vue';
+import { ref,defineProps,computed } from 'vue';
+import { Link, router } from '@inertiajs/vue3';
 
-const toast = useToast();
-const isMinimized = ref(false);
-/* const activeSubMenu = ref(null);
+const props = defineProps({
+  isMinimized: Boolean,
+});
+
+const activeSubMenu = ref(null);
 
 const menuItems = [
   { title: 'Dashboard', route: '/' },
@@ -112,22 +69,30 @@ const menuItems = [
     ]
   },
   // Añade más elementos de menú y submenús según sea necesario
-];*/
+];
 
-function toggleSidebar() {
-  isMinimized.value = !isMinimized.value;
-}
-
-/* function toggleSubMenu(index) {
+function toggleSubMenu(index) {
   if (activeSubMenu.value === index) {
     activeSubMenu.value = null;
   } else {
     activeSubMenu.value = index;
   }
-} */
+}
+
+const asideClasses = computed(() => ({
+  'w-64': !props.isMinimized,
+  'w-16': props.isMinimized,
+  'bg-white dark:bg-gray-800 shadow-lg': true
+}));
 
 </script>
 
 <style scoped>
 /* Estilos adicionales según sea necesario */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
 </style>

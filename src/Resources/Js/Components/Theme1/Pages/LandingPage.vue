@@ -15,7 +15,9 @@
 <script setup>
 import { ref,defineProps } from 'vue';
 import Header from '../Component/Header.vue';
-
+import Button from 'primevue/button';
+import { useToast } from 'primevue/usetoast';
+const toast = useToast();
 const props = defineProps({
   system: { type: Object }
 });
@@ -27,6 +29,7 @@ const toggleAuth = (authState) => {
 const getStarted = () => {
   // Lógica para comenzar
 };
+
 </script>
 
 <style scoped>

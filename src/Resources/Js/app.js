@@ -8,6 +8,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import PrimeVue from 'primevue/config';
+import Toast from 'primevue/toast';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import store from "./store";
@@ -30,14 +31,14 @@ createInertiaApp({
             throw new Error('Template is not defined in store.props');
         }
 
-        const componentPath = `./Components/${store.state.props.template}/Pages/${name}.vue`;
-        const components = import.meta.glob(`./Components/**/*.vue`);
+        //const componentPath = `./Components/${store.state.props.template}/Pages/${name}.vue`;
+        //const components = import.meta.glob(`./Components/**/*.vue`);
 
-        if (!components[componentPath]) {
-            throw new Error(`Page not found: ${componentPath}`);
-        }
+        //if (!components[componentPath]) {
+        //    throw new Error(`Page not found: ${componentPath}`);
+        //}
 
-        return components[componentPath]();
+        return /* components[componentPath]() */resolvePageComponent(`./Components/${store.state.props.template}/Pages/${name}.vue`, import.meta.glob(`./Components/**/*.vue`));
     },
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
@@ -51,6 +52,7 @@ createInertiaApp({
              })
             .use(ConfirmationService)
             .use(ToastService)
+            .component('Toast', Toast)
             .mount(el);
     }
 });

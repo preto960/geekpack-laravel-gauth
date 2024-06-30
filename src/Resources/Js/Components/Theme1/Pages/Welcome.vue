@@ -1,6 +1,7 @@
 <template>
   <Head title="Home" />
   <div>
+    <Toast />
     <!-- {{ $page }} --><!-- v-if="ComponentLoaded" -->
     <component  :is="LandingPage" :system="props"/>
     <!-- <div v-else class="flex flex-col items-center justify-center h-screen">
@@ -11,7 +12,7 @@
 </template>
 
 <script setup>
-  import { defineProps, ref, onMounted, markRaw } from 'vue';
+  import { defineProps } from 'vue';
   import { Head } from '@inertiajs/vue3';
   import LandingPage from './LandingPage.vue';
 

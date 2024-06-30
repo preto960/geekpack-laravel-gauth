@@ -51,8 +51,7 @@
 </template>
 
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import Toast from 'primevue/toast';
+import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import { useToast } from 'primevue/usetoast';
 import Checkbox from '../../Component/Checkbox.vue';
 import InputError from '../../Component/InputError.vue';
@@ -95,12 +94,14 @@ const submit = async () => {
       life: 5000,
     });
     form.reset();
-
-    const userLogin = response.data;
-    store.commit('setUser', userLogin);
-    const dashboardUrl = route('dashboard');
-    window.location.href = dashboardUrl;
-
+    console.log(response);
+    setTimeout(() => {
+      const userLogin = response.data;
+      store.commit('setUser', userLogin);
+      /* const dashboardUrl = route('dashboard');
+      window.location.href = dashboardUrl; */
+      router.replace('/dashboard');
+    }, 5000);
   } catch (error) {
     if (error.response && error.response.status === 422) {
       form.errors = error.response.data.errors;
