@@ -96,7 +96,7 @@ const submit = async () => {
       severity: 'success',
       summary: 'Success',
       detail: response.data.message,
-      life: 5000,
+      life: 2000,
     });
 
     form.reset();

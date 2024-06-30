@@ -1,9 +1,9 @@
 <template>
   <Head title="Login" />
   <Toast />
-  <div v-if="ComponentLoaded" class="flex flex-col items-center justify-center h-screen">
-    <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-    <div class="mt-4 text-lg text-gray-900 animate-pulse">loading...</div>
+  <div v-if="ComponentLoaded" class="flex flex-col items-center justify-center h-screen dark:bg-gray-800 dark:text-white">
+      <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 dark:border-gray-300"></div>
+      <div class="mt-4 text-lg dark:text-gray-300 animate-pulse">loading...</div>
   </div>
   <div v-else class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
     <div class="max-w-md w-full bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
