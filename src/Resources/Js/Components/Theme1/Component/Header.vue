@@ -52,23 +52,21 @@ const props = defineProps({
   system: { type: Object }
 });
 
-const store = useStore();
+/* const emit = defineEmits(['toggleAuth']);
 
-const emit = defineEmits(['toggleAuth']);
-
-const dropdownOpen = ref(false);
+const dropdownOpen = ref(false); */
 
 /* const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value;
 }; */
 
-const register = () => {
+/* const register = () => {
   emit('toggleAuth', true);
 };
 
 const logout = () => {
   emit('toggleAuth', false);
-};
+}; */
 
 </script>
 
