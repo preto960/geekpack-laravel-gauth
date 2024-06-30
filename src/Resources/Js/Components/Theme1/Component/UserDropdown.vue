@@ -31,7 +31,7 @@
 
     const dropdownOpen = ref(false);
 
-    const user = ref((store.state.data.length > 0) ? store.state.data.user : null);
+    const user = (store.state.data !== null) ? store.state.data.user : null;
 
     function toggleDropdown() {
         dropdownOpen.value = !dropdownOpen.value;
