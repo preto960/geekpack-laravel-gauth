@@ -2,10 +2,10 @@
   <Head title="Forgot Password" />
   <Toast />
   <div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <div class="fixed top-4 right-0 bg-gray-200 dark:bg-gray-800 rounded-l-lg pl-3 pr-2 py-2 flex items-center justify-center">
+      <ThemeToggleButton />
+    </div>
     <div class="max-w-md w-full bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-      <div class="flex justify-end mb-4">
-        <ThemeToggleButton />
-      </div>
       <h2 class="text-2xl font-semibold text-center text-gray-700 dark:text-gray-200">Forgot Password</h2>
       <form @submit.prevent="submit">
         <div class="mt-4">

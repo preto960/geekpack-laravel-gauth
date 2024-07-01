@@ -10,7 +10,7 @@
 
     <div class="flex-1">
       <header class="bg-white dark:bg-gray-800 shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div class="mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div class="flex items-center space-x-4">
             <button @click="toggleSidebar" class="text-gray-400 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-200 focus:outline-none focus:text-gray-900 dark:focus:text-gray-200">
               <svg v-if="isMinimized" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -30,7 +30,7 @@
       </header>
 
       <main>
-        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="mx-auto py-6 sm:px-6 lg:px-8">
           <div class="px-4 py-6 sm:px-0">
             <div class="border-4 border-dashed border-gray-200 dark:border-gray-700 rounded-lg h-96"></div>
           </div>

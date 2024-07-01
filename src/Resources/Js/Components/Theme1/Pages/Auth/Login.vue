@@ -6,10 +6,10 @@
       <div class="mt-4 text-lg dark:text-gray-300 animate-pulse">loading...</div>
   </div>
   <div v-else class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <div class="fixed top-4 right-0 bg-gray-200 dark:bg-gray-800 rounded-l-lg pl-3 pr-2 py-2 flex items-center justify-center">
+      <ThemeToggleButton />
+    </div>
     <div class="max-w-md w-full bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-      <div class="flex justify-end mb-4">
-        <ThemeToggleButton />
-      </div>
       <h2 class="text-2xl font-semibold text-center text-gray-700 dark:text-gray-200">Login</h2>
       <form @submit.prevent="submit">
         <div class="mt-4">
@@ -22,7 +22,7 @@
           <div class="relative">
             <input v-model="form.password" :type="showPassword ? 'text' : 'password'" class="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:text-gray-300">
             <button type="button" @click="toggleShowPassword" class="absolute inset-y-0 right-0 px-3 pt-2 flex items-center">
-              <i class="pi" :class="showPassword ? 'pi-eye-slash' : 'pi-eye'"></i>
+              <i class="pi" :class="showPassword ? 'pi-eye-slash' : 'pi-eye','dark:text-white'"></i>
             </button>
           </div>
           <InputError class="mt-2" :message="form.errors.password" />
@@ -44,7 +44,7 @@
             <span v-else>Sign In</span>
           </button>
         </div>
-        <div class="mt-6">New on our platform? 
+        <div class="mt-6 dark:text-gray-400">New on our platform? 
           <Link :href="route('register')" class="rounded-md px-3 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
             Create an account
           </Link>
