@@ -221,4 +221,15 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Verification email resent.'], 200);
     }
+
+    public function refresh(Request $request)
+    {
+        $request->validate([
+            'refresh_token' => 'required'
+        ]);
+
+        $token = Auth::guard('web')->refresh();
+
+        return response()->json(['access_token' => $token]);
+    }
 }

@@ -89,6 +89,13 @@ class GauthSeeder extends Seeder
                 'name' => 'api.password-reset'
             ],
             [
+                'type' => 'post', 
+                'route' => 'api/resfreshtoken', 
+                'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
+                'class' => 'refresh', 
+                'name' => 'api.refresh'
+            ],
+            [
                 'type' => 'get', 
                 'route' => 'api/email/verify', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
@@ -108,7 +115,7 @@ class GauthSeeder extends Seeder
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'resendVerificationEmail', 
                 'name' => 'verification.send'
-            ],
+            ]
             
         ];
 
