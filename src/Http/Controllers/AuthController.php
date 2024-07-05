@@ -40,7 +40,7 @@ class AuthController extends Controller
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Invalid login details'], 401);
             }
-            return back()->withErrors(['email' => 'Invalid login details'])->withInput();
+            return response()->json(['message' => 'Invalid login details.'], 403);
         }
     
         $user = User::where('email', $request['email'])->firstOrFail();
@@ -49,7 +49,7 @@ class AuthController extends Controller
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Email not verified.'], 403);
             }
-            return back()->withErrors(['email' => 'Email not verified.'])->withInput();
+            return response()->json(['message' => 'Email not verified.'], 403);
         }
     
         $token = $user->createToken('auth_token')->plainTextToken;
