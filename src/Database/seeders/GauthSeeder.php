@@ -33,7 +33,7 @@ class GauthSeeder extends Seeder
             ],
             [
                 'type' => 'get', 
-                'route' => 'verifyemail', 
+                'route' => 'verifyemail/{id}', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'showVerifyEmail', 
                 'name' => 'verifyemail'
