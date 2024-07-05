@@ -171,7 +171,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Email verification required'], 403);
     }
 
-    public function showVerifyEmail()
+    public function showVerifyEmail(Request $request)
     {
         $user = User::findOrFail($request->route('id'));
         return Inertia::render('Auth/VerifyEmail', [
