@@ -40,6 +40,13 @@ class GauthSeeder extends Seeder
             ],
             [
                 'type' => 'get', 
+                'route' => 'resetpassword/{hash}', 
+                'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
+                'class' => 'showResetPassword', 
+                'name' => 'resetpassword'
+            ],
+            [
+                'type' => 'get', 
                 'route' => 'dashboard', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\DashboardController', 
                 'class' => 'index', 
@@ -79,7 +86,7 @@ class GauthSeeder extends Seeder
                 'route' => 'api/reset-password', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'resetPassword', 
-                'name' => 'password.reset'
+                'name' => 'api.password-reset'
             ],
             [
                 'type' => 'get', 
