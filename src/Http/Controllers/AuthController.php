@@ -173,7 +173,10 @@ class AuthController extends Controller
 
     public function showVerifyEmail()
     {
-        return Inertia::render('Auth/VerifyEmail');
+        $user = User::findOrFail($request->route('id'));
+        return Inertia::render('Auth/VerifyEmail', [
+            'verifyurl' => '/api/email/verify/'.$request->route('id').'/'.sha1($user->email),
+        ]);
     }
 
     public function verify(Request $request)
