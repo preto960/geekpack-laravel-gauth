@@ -120,22 +120,36 @@ class AuthController extends Controller
             return response()->json(['message' => 'We can\'t find a user with that email address.'], 404);
         }
 
-        $status = Password::broker()->sendResetLink(
-            $request->only('email')
+        // Generar un token de restablecimiento
+        $token = \Str::random(60);
+
+        // Guardar el token en la base de datos
+        $status = \DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $request->email],
+            [
+                'email' => $request->email,
+                'token' => $token,
+                'created_at' => \Carbon\Carbon::now()
+            ]
         );
 
-        if ($status == Password::RESET_LINK_SENT) {
+        $result = $user->sendPasswordResetNotification($token);
+
+        if ($status == $result) {
             return response()->json(['message' => 'Password reset link sent'], 200);
-        }
+        } 
 
         return response()->json(['message' => 'Unable to send password reset link'], 500);
+    }
+
+    public function showResetPassword(Request $request)
+    {
+        return Inertia::render('Auth/ResetPassword');
     }
 
     public function resetPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'token' => 'required|string',
-            'email' => 'required|string|email',
             'password' => 'required|string|min:8|confirmed',
         ]);
         
@@ -145,21 +159,16 @@ class AuthController extends Controller
             }
             return back()->withErrors($validator)->withInput();
         }
+        
+        $status = \DB::table('password_reset_tokens')->where('token', $request->token)->first();
+        
+        if($status){
+            $user = User::where('email', $status->email)->first();
+            $user->password = Hash::make($request->password);
+            $user->save();
 
-        $status = Password::broker()->reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) {
-
-                $user->forceFill([
-                    'password' => Hash::make($password),
-                ])->save();
-
-                PersonalAccessToken::where('tokenable_id', $user->id)
-                                    ->where('tokenable_type', get_class($user))
-                                    ->delete();
-            }
-        );
-        if ($status == Password::PASSWORD_RESET) {
+            \DB::table('password_reset_tokens')->where('token', $request->token)->delete();
+            
             return response()->json(['message' => 'Password has been reset'], 200);
         }
 

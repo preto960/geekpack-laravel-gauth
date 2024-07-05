@@ -4,7 +4,7 @@ namespace Geekpack\Gauth\Notifications;
 
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class ResetPasswordNotification extends Notification
@@ -16,7 +16,6 @@ class ResetPasswordNotification extends Notification
         $this->token = $token;
     }
 
-    // Define the delivery channels for the notification
     public function via($notifiable)
     {
         return ['mail'];
@@ -24,7 +23,7 @@ class ResetPasswordNotification extends Notification
 
     public function toMail($notifiable)
     {
-        $url = $this->resetUrl($notifiable);
+        $url = url('resetpassword/'.$this->token);
 
         return (new MailMessage)
             ->subject('Reset Password Notification')
@@ -33,12 +32,13 @@ class ResetPasswordNotification extends Notification
             ->line('If you did not request a password reset, no further action is required.');
     }
 
-    protected function resetUrl($notifiable)
+    public function toLog($notifiable)
     {
-        return URL::temporarySignedRoute(
-            'api.password.update', // Make sure this route is defined in your API routes file
-            Carbon::now()->addMinutes(60),
-            ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()]
-        );
+        $url = url('resetpassword/'.$this->token);
+
+        Log::info('Forgot password details', [
+            'to' => $notifiable->email,
+            'url' => $url,
+        ]);
     }
 }

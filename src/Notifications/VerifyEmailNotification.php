@@ -15,7 +15,6 @@ class VerifyEmailNotification extends Notification
 
     public function toMail($notifiable)
     {
-        /* $verificationUrl = url('/api/email/verify/'.$notifiable->id.'/'.sha1($notifiable->email)); */
         $verificationUrl = url('/verifyemail/'.$notifiable->id);
 
         Log::info('Preparing to send email verification', [
@@ -32,7 +31,6 @@ class VerifyEmailNotification extends Notification
 
     public function toLog($notifiable)
     {
-        /* $verificationUrl = url('/api/email/verify/'.$notifiable->id.'/'.sha1($notifiable->email)); */
         $verificationUrl = url('/verifyemail/'.$notifiable->id);
 
         Log::info('Logging email verification details', [
