@@ -91,7 +91,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        try {
+            $request->user()->currentAccessToken()->delete();
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Failed to logout.'], 500);
+        }
 
         return response()->json(['message' => 'Successfully logged out'], 200);
     }
@@ -120,10 +124,8 @@ class AuthController extends Controller
             return response()->json(['message' => 'We can\'t find a user with that email address.'], 404);
         }
 
-        // Generar un token de restablecimiento
         $token = \Str::random(60);
 
-        // Guardar el token en la base de datos
         $status = \DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $request->email],
             [
@@ -227,8 +229,11 @@ class AuthController extends Controller
         $request->validate([
             'refresh_token' => 'required'
         ]);
+        $user = $request->user();
 
-        $token = Auth::guard('web')->refresh();
+        $user->tokens()->delete();
+
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json(['access_token' => $token]);
     }
