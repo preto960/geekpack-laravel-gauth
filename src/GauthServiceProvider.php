@@ -58,7 +58,7 @@ class GauthServiceProvider extends ServiceProvider
             __DIR__.'/Resources/js/app.js' => resource_path('js/app.js'),
             __DIR__.'/Resources/js/Components' => resource_path('js/Components'),
             __DIR__.'/Resources/js/store' => resource_path('js/store'),
-            /* __DIR__.'/Resources/js/Pages' => resource_path('js/Pages'), */
+            __DIR__.'/Resources/js/service' => resource_path('js/service'),
         ], 'views');
 
         $this->publishes([
