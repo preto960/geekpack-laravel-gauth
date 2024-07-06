@@ -33,6 +33,7 @@
   import Avatar from 'primevue/avatar';
   import { useToast } from 'primevue/usetoast';
   import axios from 'axios';
+  import Cookies from 'js-cookie';
   
   const store = useStore();
   const toast = useToast();
@@ -81,6 +82,7 @@
       });
   
       setTimeout(() => {
+        Cookies.remove('miCookie');
         store.commit('setUser', null);
         router.replace('/');
       }, 2500);

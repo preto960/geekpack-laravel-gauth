@@ -70,7 +70,7 @@ async function refreshToken() {
 
     const data = await response.json();
     // Aquí actualizas tu cookie con el nuevo token y tiempo de expiración
-    setCookie('miCookie', data.newToken, 60);
+    setCookie('miCookie', data.access_token, 60);
     startCookieCheck(); // Reiniciar el intervalo
   } catch (error) {
     console.error('Error al refrescar el token:', error);
@@ -93,7 +93,7 @@ async function logout() {
     }
 
     Cookies.remove('miCookie');
-      store.commit('setUser', null);
+    store.commit('setUser', null);
     console.log('Sesión cerrada.');
     // Aquí puedes redirigir al usuario a la página de login o realizar otras acciones necesarias
   } catch (error) {
