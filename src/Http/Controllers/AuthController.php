@@ -33,7 +33,7 @@ class AuthController extends Controller
             if ($request->expectsJson()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-            return back()->withErrors($validator)->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
     
         if (!Auth::attempt($request->only('email', 'password'))) {
@@ -75,7 +75,7 @@ class AuthController extends Controller
             if ($request->expectsJson()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-            return back()->withErrors($validator)->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $user = User::create([
@@ -115,7 +115,7 @@ class AuthController extends Controller
             if ($request->expectsJson()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-            return back()->withErrors($validator)->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $user = User::where('email', $request->email)->first();
@@ -159,7 +159,7 @@ class AuthController extends Controller
             if ($request->expectsJson()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-            return back()->withErrors($validator)->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
         
         $status = \DB::table('password_reset_tokens')->where('token', $request->token)->first();

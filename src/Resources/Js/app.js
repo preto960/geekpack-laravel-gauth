@@ -12,6 +12,7 @@ import Toast from 'primevue/toast';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import store from "./store";
+import { startCookieCheck, stopCookieCheck } from './services/authService';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -34,7 +35,7 @@ createInertiaApp({
         return resolvePageComponent(`./Components/${store.state.props.template}/Pages/${name}.vue`, import.meta.glob(`./Components/**/*.vue`));
     },
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
+        const app = createApp({ render: () => h(App, props) })
             .use(store)
             .use(plugin)
             .use(ZiggyVue)
@@ -45,7 +46,17 @@ createInertiaApp({
              })
             .use(ConfirmationService)
             .use(ToastService)
-            .component('Toast', Toast)
-            .mount(el);
+            .component('Toast', Toast);
+
+        app.mixin({
+            mounted() {
+                startCookieCheck();
+            },
+            beforeUnmount() {
+                stopCookieCheck();
+            }
+        });
+
+        app.mount(el);
     }
 });

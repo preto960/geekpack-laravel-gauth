@@ -21,6 +21,7 @@
         "vuex": "^4.1.0",
         "vuex-persistedstate": "^4.1.0",
         "primeicons": "^7.0.0",
-        "primevue": "^3.52.0"
+        "primevue": "^3.52.0",
+        "sweetalert2": "^11.12.2"
     }
 }
