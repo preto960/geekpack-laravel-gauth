@@ -33,7 +33,6 @@ import { useStore } from 'vuex';
 import Avatar from 'primevue/avatar';
 import { useToast } from 'primevue/usetoast';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 const store = useStore();
 const toast = useToast();
@@ -82,9 +81,7 @@ const logout = async () => {
     });
     
     setTimeout(() => {
-      Cookies.remove('miCookie');
       store.commit('setUser', null);
-      store.commit('setExpirationDate', null);
       isLoggedIn.value = null;
       
       router.replace('/');

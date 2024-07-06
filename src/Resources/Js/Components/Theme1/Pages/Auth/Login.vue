@@ -105,7 +105,6 @@ const submit = async () => {
     setTimeout(() => {
       const userLogin = response.data;
       store.commit('setUser', userLogin);
-      store.commit('setAccessToken', userLogin.access_token);
       router.replace('/dashboard');
     }, 3000);
   } catch (error) {

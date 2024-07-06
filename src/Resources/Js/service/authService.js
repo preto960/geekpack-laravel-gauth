@@ -79,7 +79,7 @@ async function refreshToken(store, toast) {
     const data = response.data;
 
     store.commit('setAccessToken', data.access_token);
-    store.commit('setTimeToken', data.time);
+    store.commit('setTimeToken', data.time_expire);
     
     startExpirationCheck(store, toast);
 
@@ -112,7 +112,6 @@ async function logout(store, toast) {
     });
 
     store.commit('setUser', null);
-    store.commit('setExpirationDate', null);
     
     router.replace('/');
     
