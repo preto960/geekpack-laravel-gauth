@@ -10,7 +10,7 @@
 
     <div class="flex-1">
       <header class="bg-white dark:bg-gray-800 shadow">
-        <div class="mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div class="mx-auto py-4 px-4 sm:px-4 lg:px-4 flex justify-between items-center">
           <div class="flex items-center space-x-4">
             <button @click="toggleSidebar" class="text-gray-400 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-200 focus:outline-none focus:text-gray-900 dark:focus:text-gray-200">
               <svg v-if="isMinimized" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -23,7 +23,7 @@
             <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-200">Dashboard</h1>
           </div>
           <div class="flex items-center space-x-4">
-            <span>{{ currentTime }}</span>
+            <Time />
             <ThemeToggleButton />
             <UserDropdown @ComponentLoaded="handleComponentLoaded"/>
           </div>
@@ -47,13 +47,12 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import { useToast } from 'primevue/usetoast';
 import ThemeToggleButton from '../Component/ThemeToggleButton.vue';
 import UserDropdown from '../Component/UserDropdown.vue';
+import Time from '../Component/Time.vue';
 import Sidebar from '../Component/Sidebar.vue';
 
 const toast = useToast();
 const isMinimized = ref(false);
 const ComponentLoaded = ref(true);
-
-const currentTime = ref('')
 
 const toggleSidebar = () => {
   isMinimized.value = !isMinimized.value;
@@ -61,17 +60,7 @@ const toggleSidebar = () => {
 
 onMounted(() => {
   ComponentLoaded.value = false;
-  updateCurrentTime()
-  setInterval(updateCurrentTime, 1000)
 });
-
-function updateCurrentTime() {
-  const now = new Date()
-  const hours = String(now.getHours()).padStart(2, '0')
-  const minutes = String(now.getMinutes()).padStart(2, '0')
-  const seconds = String(now.getSeconds()).padStart(2, '0')
-  currentTime.value = `${hours}:${minutes}:${seconds}`
-}
 
 const handleComponentLoaded = (value) => {
   ComponentLoaded.value = value;
