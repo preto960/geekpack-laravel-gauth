@@ -26,6 +26,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
             'password' => 'required|string',
@@ -55,11 +56,13 @@ class AuthController extends Controller
         }
     
         $token = $user->createToken('auth_token')->plainTextToken;
-
+        
         $currentDateTime = \Carbon\Carbon::now();
-        $expirationTime = $currentDateTime->addMinutes($this->timeRefreshToken);
-    
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'current_time' => $currentDateTime, 'time' => $expirationTime], 200);
+
+        $currentDateTime_t = \Carbon\Carbon::now();
+        $expirationTime = $currentDateTime_t->addMinutes($this->timeRefreshToken);
+        
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'current_time' => $currentDateTime, 'time_expire' => $expirationTime], 200);
     }
 
     public function showRegister()
@@ -241,8 +244,10 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $currentDateTime = \Carbon\Carbon::now();
-        $expirationTime = $currentDateTime->addMinutes($this->timeRefreshToken);
 
-        return response()->json(['access_token' => $token, 'current_time' => $currentDateTime, 'time' => $expirationTime]);
+        $currentDateTime_t = \Carbon\Carbon::now();
+        $expirationTime = $currentDateTime_t->addMinutes($this->timeRefreshToken);
+
+        return response()->json(['access_token' => $token, 'current_time' => $currentDateTime, 'time_expire' => $expirationTime]);
     }
 }

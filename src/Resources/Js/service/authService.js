@@ -5,11 +5,6 @@ import { router } from '@inertiajs/vue3';
 let intervalId = null;
 let isAlertShown = false;
 
-/* export function setExpirationDate(store, minutes) {
-  const expirationDate = new Date(new Date().getTime() + minutes * 60 * 1000).toISOString(); // Convertir a ISO string
-  store.commit('setExpirationDate', expirationDate);
-} */
-
 export function startExpirationCheck(store, toast) {
   if (intervalId) {
     clearInterval(intervalId);
@@ -25,8 +20,8 @@ export function stopExpirationCheck() {
 }
 
 function checkExpiration(store, toast) {
-  const now = new Date().toISOString(); // Convertir a ISO string
-  const expirationDate = (store.state.data !== null ? store.state.data.time:null);
+  const now = (store.state.data !== null ? store.state.data.current_time : new Date().toISOString());
+  const expirationDate = (store.state.data !== null ? store.state.data.time_expire:null);
 
   if (expirationDate && now >= expirationDate && store.state.data && !isAlertShown) {
     stopExpirationCheck();
