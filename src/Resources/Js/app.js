@@ -12,7 +12,7 @@ import Toast from 'primevue/toast';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import store from "./store";
-import { startCookieCheck, stopCookieCheck } from './services/authService';
+import { startCookieCheck, stopCookieCheck } from './service/authService';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
