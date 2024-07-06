@@ -11,6 +11,9 @@ export default createStore({
     setUser(state, data) {
       state.data = data;
     },
+    setAccessToken(state, data) {
+      state.data.access_token = data;
+    },
     setProps(state, props) {
       state.props = props;
     },

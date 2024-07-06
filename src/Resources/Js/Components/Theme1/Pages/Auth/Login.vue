@@ -106,7 +106,7 @@ const submit = async () => {
     setTimeout(() => {
       const userLogin = response.data;
       store.commit('setUser', userLogin);
-      setCookie('miCookie', userLogin.access_token, 60);
+      setCookie('miCookie', userLogin.access_token, 1);
       router.replace('/dashboard');
     }, 3000);
   } catch (error) {

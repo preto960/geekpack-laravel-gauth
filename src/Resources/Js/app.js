@@ -23,7 +23,7 @@ createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
         const props = JSON.parse(app.dataset.page);
-    
+
         if (!store.state.props) {
             store.commit('setProps', props.props);
         }
@@ -50,7 +50,7 @@ createInertiaApp({
 
         app.mixin({
             mounted() {
-                startCookieCheck();
+                startCookieCheck(store); // Pasar el store al iniciar la verificación
             },
             beforeUnmount() {
                 stopCookieCheck();
