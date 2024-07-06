@@ -20,7 +20,7 @@ export function stopExpirationCheck() {
 }
 
 function checkExpiration(store, toast) {
-  const now = (store.state.data !== null ? store.state.data.current_time : new Date().toISOString());
+  const now = new Date().toISOString();
   const expirationDate = (store.state.data !== null ? store.state.data.time_expire:null);
 
   if (expirationDate && now >= expirationDate && store.state.data && !isAlertShown) {

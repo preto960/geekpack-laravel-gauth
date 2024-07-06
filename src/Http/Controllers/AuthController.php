@@ -26,7 +26,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
             'password' => 'required|string',
@@ -58,11 +57,9 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
         
         $currentDateTime = \Carbon\Carbon::now();
-
-        $currentDateTime_t = \Carbon\Carbon::now();
-        $expirationTime = $currentDateTime_t->addMinutes($this->timeRefreshToken);
+        $expirationTime = $currentDateTime->addMinutes($this->timeRefreshToken);
         
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'current_time' => $currentDateTime, 'time_expire' => $expirationTime], 200);
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'time_expire' => $expirationTime, 'time_expire_second' => $this->takeExpireTimeToken()], 200);
     }
 
     public function showRegister()
@@ -244,10 +241,21 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $currentDateTime = \Carbon\Carbon::now();
+        $expirationTime = $currentDateTime->addMinutes($this->timeRefreshToken);
 
-        $currentDateTime_t = \Carbon\Carbon::now();
-        $expirationTime = $currentDateTime_t->addMinutes($this->timeRefreshToken);
+        return response()->json(['access_token' => $token, 'time_expire' => $expirationTime, 'time_expire_second' => $this->takeExpireTimeToken()]);
+    }
 
-        return response()->json(['access_token' => $token, 'current_time' => $currentDateTime, 'time_expire' => $expirationTime]);
+    public function takeExpireTimeToken() {
+        $fechaInicio = \Carbon\Carbon::now();
+        $fechaFin = \Carbon\Carbon::now()->addMinutes($this->timeRefreshToken);
+    
+        // Asegúrate de que ambas fechas estén en la misma zona horaria
+        $fechaInicio->setTimezone('UTC');
+        $fechaFin->setTimezone('UTC');
+    
+        // Calcula la diferencia en segundos y asegúrate de que sea positiva
+        $diferenciaEnSegundos = $fechaFin->diffInSeconds($fechaInicio, false); // El parámetro false permite diferencias negativas
+        return intval(abs($diferenciaEnSegundos)); // Devuelve el valor absoluto como entero
     }
 }
