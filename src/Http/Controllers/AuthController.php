@@ -17,7 +17,12 @@ use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
-    protected $timeRefreshToken = 1;
+    protected $timeRefreshToken;
+
+    public function __construct()
+    {
+        $this->timeRefreshToken = env('TIME_REFRESH_TOKEN', 60);
+    }
 
     public function showLogin()
     {
