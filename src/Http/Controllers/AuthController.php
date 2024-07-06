@@ -59,7 +59,7 @@ class AuthController extends Controller
         $currentDateTime = \Carbon\Carbon::now();
         $expirationTime = $currentDateTime->addMinutes($this->timeRefreshToken);
     
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'time' => $expirationTime], 200);
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'current_time' => $currentDateTime, 'time' => $expirationTime], 200);
     }
 
     public function showRegister()
@@ -243,6 +243,6 @@ class AuthController extends Controller
         $currentDateTime = \Carbon\Carbon::now();
         $expirationTime = $currentDateTime->addMinutes($this->timeRefreshToken);
 
-        return response()->json(['access_token' => $token, 'time' => $expirationTime]);
+        return response()->json(['access_token' => $token, 'current_time' => $currentDateTime, 'time' => $expirationTime]);
     }
 }
