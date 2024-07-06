@@ -17,6 +17,8 @@ use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
+    protected $timeRefreshToken = 1;
+
     public function showLogin()
     {
         return Inertia::render('Auth/Login');
@@ -53,8 +55,11 @@ class AuthController extends Controller
         }
     
         $token = $user->createToken('auth_token')->plainTextToken;
+
+        $currentDateTime = \Carbon\Carbon::now();
+        $expirationTime = $currentDateTime->addMinutes($this->timeRefreshToken);
     
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user], 200);
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'time' => $expirationTime], 200);
     }
 
     public function showRegister()
@@ -235,6 +240,9 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['access_token' => $token]);
+        $currentDateTime = \Carbon\Carbon::now();
+        $expirationTime = $currentDateTime->addMinutes($this->timeRefreshToken);
+
+        return response()->json(['access_token' => $token, 'time' => $expirationTime]);
     }
 }

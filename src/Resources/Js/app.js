@@ -12,7 +12,7 @@ import Toast from 'primevue/toast';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import store from "./store";
-import { startCookieCheck, stopCookieCheck } from './service/authService';
+import { startExpirationCheck, stopExpirationCheck } from './service/authService';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -50,10 +50,11 @@ createInertiaApp({
 
         app.mixin({
             mounted() {
-                startCookieCheck(store); // Pasar el store al iniciar la verificación
+                const toast = app.config.globalProperties.$toast;
+                startExpirationCheck(store, toast); // Pasar el store y el toast al iniciar la verificación
             },
             beforeUnmount() {
-                stopCookieCheck();
+                stopExpirationCheck();
             }
         });
 

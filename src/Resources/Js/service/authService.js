@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { router } from '@inertiajs/vue3';
@@ -6,36 +5,38 @@ import { router } from '@inertiajs/vue3';
 let intervalId = null;
 let isAlertShown = false;
 
-export function setCookie(name, value, minutes) {
-  const expirationDate = new Date(new Date().getTime() + minutes * 60 * 1000);
-  Cookies.set(name, value, { expires: expirationDate });
+/* export function setExpirationDate(store, minutes) {
+  const expirationDate = new Date(new Date().getTime() + minutes * 60 * 1000).toISOString(); // Convertir a ISO string
+  store.commit('setExpirationDate', expirationDate);
+} */
+
+export function startExpirationCheck(store, toast) {
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
+  intervalId = setInterval(() => {
+    checkExpiration(store, toast);
+  }, 1000);
 }
 
-export function getCookie(name) {
-  const cookieValue = Cookies.get(name);
-  return cookieValue || null;
-}
-
-export function startCookieCheck(store) {
-  intervalId = setInterval(() => checkCookie(store), 1000); // Comprobar cada segundo
-}
-
-export function stopCookieCheck() {
-  clearInterval(intervalId); // Detener la verificación
+export function stopExpirationCheck() {
+  clearInterval(intervalId);
   intervalId = null;
 }
 
-function checkCookie(store) {
-  const cookie = getCookie('miCookie');
-  if (!cookie && store.state.data && !isAlertShown) {
-    // Si no hay cookie y el usuario está autenticado
-    stopCookieCheck(); // Detener la verificación
-    onCookieExpire(store); // Mostrar alerta de sesión expirada
+function checkExpiration(store, toast) {
+  const now = new Date().toISOString(); // Convertir a ISO string
+  const expirationDate = (store.state.data !== null ? store.state.data.time:null);
+
+  if (expirationDate && now >= expirationDate && store.state.data && !isAlertShown) {
+    stopExpirationCheck();
+    onSessionExpire(store, toast);
   }
 }
 
-function onCookieExpire(store) {
+function onSessionExpire(store, toast) {
   isAlertShown = true;
+
   Swal.fire({
     title: 'Sesión Expirada',
     text: "¿Deseas permanecer en la sesión?",
@@ -43,22 +44,23 @@ function onCookieExpire(store) {
     showCancelButton: true,
     confirmButtonText: 'Permanecer',
     cancelButtonText: 'Cerrar Sesión',
-    allowOutsideClick: false, // Evitar cerrar haciendo clic fuera del SweetAlert
-    allowEscapeKey: false // Evitar cerrar con la tecla Escape
+    allowOutsideClick: false,
+    allowEscapeKey: false
   }).then((result) => {
+    isAlertShown = false;
+
     if (result.isConfirmed) {
-      refreshToken(store); // Actualizar token y reiniciar verificación
+      refreshToken(store, toast);
     } else if (result.dismiss === Swal.DismissReason.cancel) {
-      logout(store); // Cerrar sesión si el usuario cancela
+      logout(store, toast);
     }
-    isAlertShown = false; // Resetear bandera
   });
 }
 
-async function refreshToken(store) {
+async function refreshToken(store, toast) {
   try {
     const { token_type, access_token } = store.state.data;
-    // Llamar a la API para obtener un nuevo token
+
     const response = await axios.post(route('api.refresh'), {
       refresh_token: `${access_token}`,
     }, {
@@ -72,17 +74,27 @@ async function refreshToken(store) {
       throw new Error('Error al refrescar el token');
     }
 
+    toast.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'La sesión ha sido refrescada',
+      life: 2000,
+    });
+
     const data = response.data;
-    // Actualizar la cookie con el nuevo token y tiempo de expiración
+
     store.commit('setAccessToken', data.access_token);
-    setCookie('miCookie', data.access_token, 1);
-    startCookieCheck(store); // Reiniciar verificación de la cookie
+    store.commit('setTimeToken', data.time);
+    
+    startExpirationCheck(store, toast);
+
+    window.location.reload();
   } catch (error) {
     console.error('Error al refrescar el token:', error);
   }
 }
 
-async function logout(store) {
+async function logout(store, toast) {
   try {
     const { token_type, access_token } = store.state.data;
 
@@ -97,11 +109,18 @@ async function logout(store) {
       throw new Error('Error al cerrar la sesión');
     }
 
-    Cookies.remove('miCookie');
+    toast.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: response.data.message,
+      life: 2000,
+    });
+
     store.commit('setUser', null);
-    console.log('Sesión cerrada.');
+    store.commit('setExpirationDate', null);
+    
     router.replace('/');
-    // Aquí puedes redirigir al usuario a la página de login u otras acciones necesarias
+    
   } catch (error) {
     console.error('Error al cerrar la sesión:', error);
   }

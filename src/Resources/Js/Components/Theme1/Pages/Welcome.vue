@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-  import { defineProps, onMounted, ref } from 'vue';
+  import { defineProps, onMounted, ref, watch } from 'vue';
   import { Head } from '@inertiajs/vue3';
   import LandingPage from './LandingPage.vue';
 

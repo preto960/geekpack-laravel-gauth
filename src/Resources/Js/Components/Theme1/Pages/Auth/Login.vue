@@ -63,11 +63,10 @@ import ThemeToggleButton from '../../Component/ThemeToggleButton.vue';
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import axios from 'axios';
-import { setCookie } from '../../../../service/authService';
 
 const form = useForm({
-  email: '',
-  password: '',
+  email: 'preto@example.com',
+  password: 'password',
   remember: false,
   isSubmitting: false
 });
@@ -106,7 +105,7 @@ const submit = async () => {
     setTimeout(() => {
       const userLogin = response.data;
       store.commit('setUser', userLogin);
-      setCookie('miCookie', userLogin.access_token, 1);
+      store.commit('setAccessToken', userLogin.access_token);
       router.replace('/dashboard');
     }, 3000);
   } catch (error) {
