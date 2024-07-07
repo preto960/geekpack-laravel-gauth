@@ -21,7 +21,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->timeRefreshToken = env('TIME_REFRESH_TOKEN', 60);
+        $this->timeRefreshToken = (float)env('TIME_REFRESH_TOKEN', 60);
     }
 
     public function showLogin()
