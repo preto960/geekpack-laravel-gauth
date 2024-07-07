@@ -22,8 +22,8 @@
             </button>
             <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-200">Dashboard</h1>
           </div>
+          <Time />
           <div class="flex items-center space-x-4">
-            <Time />
             <ThemeToggleButton />
             <UserDropdown @ComponentLoaded="handleComponentLoaded"/>
           </div>

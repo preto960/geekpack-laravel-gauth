@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed top-20 right-0 bg-gray-200 dark:bg-gray-800 rounded-l-lg pl-3 pr-2 py-2 flex items-center">
+    <div>
         <i class="pi pi-clock mr-2 text-gray-600 dark:text-gray-400"></i>
         <span class="text-gray-800 dark:text-gray-200">{{ currentTime }}</span>
     </div>
