@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Geekpack\Api\Models\ApiRoute;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class GauthSeeder extends Seeder
 {
