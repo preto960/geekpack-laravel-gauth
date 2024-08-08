@@ -122,5 +122,12 @@ class GauthSeeder extends Seeder
         foreach ($routes as $routeData) {
             ApiRoute::create($routeData);
         }
+        
+        $adminRole = Role::create(['name' => 'admin']);
+        $userRole = Role::create(['name' => 'user']);
+
+        $manageUsersPermission = Permission::create(['name' => 'manage users']);
+
+        $adminRole->givePermissionTo($manageUsersPermission);
     }
 }

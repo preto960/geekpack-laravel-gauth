@@ -63,8 +63,12 @@ class AuthController extends Controller
         
         $currentDateTime = \Carbon\Carbon::now();
         $expirationTime = $currentDateTime->addMinutes($this->timeRefreshToken);
+
+        // Obtener roles y permisos del usuario
+        $roles = $user->getRoleNames();
+        $permissions = $user->getAllPermissions()->pluck('name');
         
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'time_expire' => $expirationTime, 'time_expire_second' => $this->takeExpireTimeToken()], 200);
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'roles' => $roles, 'permissions' => $permissions, 'time_expire' => $expirationTime, 'time_expire_second' => $this->takeExpireTimeToken()], 200);
     }
 
     public function showRegister()

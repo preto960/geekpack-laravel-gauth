@@ -18,7 +18,8 @@
         "laravel/framework": "^11.9",
         "inertiajs/inertia-laravel": "^1.0",
         "laravel/sanctum": "^4.0",
-        "tightenco/ziggy": "^2.2"
+        "tightenco/ziggy": "^2.2",
+        "spatie/laravel-permission": "^6.9"
     },
     "minimum-stability": "dev",
     "autoload": {
@@ -34,5 +35,5 @@
             ]
         }
     },
-    "version": "0.1.09"
+    "version": "0.1.10"
 }
