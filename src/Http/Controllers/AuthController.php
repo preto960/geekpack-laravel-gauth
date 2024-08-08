@@ -97,10 +97,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
-
-        // Asignar rol predeterminado al usuario
-        $user->assignRole('user');
+        ])->assignRole('user');
 
         Event::dispatch(new Registered($user));
 
