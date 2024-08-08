@@ -40,6 +40,7 @@ class GauthServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/mail.php' => config_path('mail.php'),
             __DIR__.'/../config/inertia.php' => config_path('inertia.php'),
+            __DIR__.'/../config/permission.php' => config_path('permission.php'),
         ], 'config');
 
         $this->publishes([
