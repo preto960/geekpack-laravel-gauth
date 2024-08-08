@@ -14,6 +14,7 @@ use Illuminate\Auth\Events\Verified;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use Laravel\Sanctum\PersonalAccessToken;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -97,6 +98,9 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // Asignar rol predeterminado al usuario
+        $user->assignRole('user');
 
         Event::dispatch(new Registered($user));
 
