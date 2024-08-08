@@ -125,10 +125,10 @@ class GauthSeeder extends Seeder
             ApiRoute::create($routeData);
         }
         
-        $adminRole = Role::create(['name' => 'admin']);
-        $userRole = Role::create(['name' => 'user']);
+        $adminRole = Role::create(['name' => 'admin','guard_name' => 'web']);
+        $userRole = Role::create(['name' => 'user','guard_name' => 'web']);
 
-        $manageUsersPermission = Permission::create(['name' => 'manage users']);
+        $manageUsersPermission = Permission::create(['name' => 'manage users','guard_name' => 'web']);
 
         $adminRole->givePermissionTo($manageUsersPermission);
     }
