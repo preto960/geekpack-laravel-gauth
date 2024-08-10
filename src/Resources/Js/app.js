@@ -13,6 +13,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import store from "./store";
 import { startExpirationCheck, stopExpirationCheck } from './service/authService';
+import PermissionPlugin from './service/permissionPlugin';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -46,6 +47,7 @@ createInertiaApp({
              })
             .use(ConfirmationService)
             .use(ToastService)
+            .use(PermissionPlugin)
             .component('Toast', Toast);
 
         app.mixin({
