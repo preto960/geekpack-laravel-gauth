@@ -14,8 +14,8 @@
     </Link>
     <div v-else class="relative">
       <button @click="toggleDropdown" class="flex items-center focus:outline-none">
-        <Avatar :image="`https://ui-avatars.com/api/?name=${ user.name }&color=7F9CF5&background=EBF4FF`" shape="circle" />
-        <span class="ml-2 dark:text-white">{{ user.name }}</span>
+        <Avatar :image="`https://ui-avatars.com/api/?name=${ $user('name') }&color=7F9CF5&background=EBF4FF`" shape="circle" />
+        <span class="ml-2 dark:text-white">{{ $user('name') }}</span>
       </button>
       <div v-if="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded shadow-lg">
         <a href="#" @click="handleClick('profile')" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700">Profile</a>
@@ -41,7 +41,7 @@ const dropdownRef = ref(null);
 
 const emit = defineEmits(['ComponentLoaded']);
 
-const user = ref((store.state.data !== null) ? store.state.data.user : null);
+/* const user = ref((store.state.data !== null) ? store.state.data.user : null); */
 const isLoggedIn = ref((store.state.data !== null) ? store.state.data.user : null);
 
 const toggleDropdown = () => {
