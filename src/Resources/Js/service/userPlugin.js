@@ -1,14 +1,12 @@
 export default {
     install(app) {
-      // Accede a la store desde el contexto global de la aplicación
-      app.config.globalProperties.$user = (key) => {
+      app.config.globalProperties.$getUser = (key) => {
         const store = app.config.globalProperties.$store;
         const user = store.state.data?.user || {};
         const data = store.state.data || {};
   
-        // Devuelve el valor basado en la clave solicitada
         switch (key) {
-          case 'username':
+          case 'name':
             return user.name;
           case 'email':
             return user.email;
