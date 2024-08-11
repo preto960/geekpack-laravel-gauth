@@ -92,10 +92,11 @@ class GauthSeeder extends Seeder
             ],
             [
                 'type' => 'post', 
-                'route' => 'api/resfreshtoken', 
+                'route' => 'api/refreshtoken', 
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'refresh', 
-                'name' => 'api.refresh'
+                'name' => 'api.refresh', 
+                'middleware' => 'auth:sanctum'
             ],
             [
                 'type' => 'get', 
@@ -117,6 +118,13 @@ class GauthSeeder extends Seeder
                 'controller' => 'Geekpack\Gauth\Http\Controllers\AuthController', 
                 'class' => 'resendVerificationEmail', 
                 'name' => 'verification.send'
+            ],
+            [
+                'type' => 'get', 
+                'route' => 'profile', 
+                'controller' => 'Geekpack\Gauth\Http\Controllers\ProfileController', 
+                'class' => 'showProfile', 
+                'name' => 'profile'
             ]
             
         ];

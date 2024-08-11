@@ -263,12 +263,10 @@ class AuthController extends Controller
         $fechaInicio = \Carbon\Carbon::now();
         $fechaFin = \Carbon\Carbon::now()->addMinutes($this->timeRefreshToken);
     
-        // Asegúrate de que ambas fechas estén en la misma zona horaria
         $fechaInicio->setTimezone('UTC');
         $fechaFin->setTimezone('UTC');
     
-        // Calcula la diferencia en segundos y asegúrate de que sea positiva
-        $diferenciaEnSegundos = $fechaFin->diffInSeconds($fechaInicio, false); // El parámetro false permite diferencias negativas
-        return intval(abs($diferenciaEnSegundos)); // Devuelve el valor absoluto como entero
+        $diferenciaEnSegundos = $fechaFin->diffInSeconds($fechaInicio, false);
+        return intval(abs($diferenciaEnSegundos));
     }
 }

@@ -18,7 +18,7 @@
         <span class="ml-2 dark:text-white">{{ $getUser('name') }}</span>
       </button>
       <div v-if="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded shadow-lg">
-        <a href="#" @click="handleClick('profile')" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700">Profile</a>
+        <Link :href="route('profile')" @click="handleClick('profile')" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700">Profile</Link>
         <a v-if="$hasPermission('manage users')" href="#" @click="handleClick('settings')" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700">Settings</a>
         <a href="#" @click="handleClick('logout')" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700">Logout</a>
       </div>
@@ -39,9 +39,9 @@ const toast = useToast();
 const dropdownOpen = ref(false);
 const dropdownRef = ref(null);
 
-const emit = defineEmits(['ComponentLoaded']);
+const emit = defineEmits(['ComponentLoaded','Component']);
 
-/* const user = ref((store.state.data !== null) ? store.state.data.user : null); */
+const user = ref((store.state.data !== null) ? store.state.data.user : null);
 const isLoggedIn = ref((store.state.data !== null) ? store.state.data.user : null);
 
 const toggleDropdown = () => {

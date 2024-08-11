@@ -10,6 +10,8 @@ export default {
             return user.name;
           case 'email':
             return user.email;
+          case 'created_at':
+            return user.created_at;
           case 'roles':
             return data.roles || [];
           case 'permissions':
