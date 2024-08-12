@@ -20,7 +20,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-200">Dashboard</h1>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-200"></h1>
           </div>
           <Time />
           <div class="flex items-center space-x-4">
