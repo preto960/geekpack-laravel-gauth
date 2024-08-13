@@ -65,8 +65,8 @@ import { useStore } from 'vuex';
 import axios from 'axios';
 
 const form = useForm({
-  email: 'preto@example.com',
-  password: 'password',
+  email: '',
+  password: '',
   remember: false,
   isSubmitting: false
 });
