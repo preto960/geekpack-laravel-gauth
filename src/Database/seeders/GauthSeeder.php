@@ -7,6 +7,8 @@ use Geekpack\Api\Models\ApiRoute;
 use Geekpack\Gauth\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
 
 class GauthSeeder extends Seeder
 {
@@ -144,14 +146,14 @@ class GauthSeeder extends Seeder
         $system = User::create([
             'name' => 'system',
             'email' => 'system@gmail.com',
-            'email_verified_at' => \Carbon\Carbon::now(),
+            'email_verified_at' => Carbon::now(),
             'password' => Hash::make('123456')
         ])->assignRole('admin');
 
         $user = User::create([
             'name' => 'user',
             'email' => 'user@gmail.com',
-            'email_verified_at' => \Carbon\Carbon::now(),
+            'email_verified_at' => Carbon::now(),
             'password' => Hash::make('123456')
         ])->assignRole('user');
     }
