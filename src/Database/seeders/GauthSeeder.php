@@ -151,8 +151,8 @@ class GauthSeeder extends Seeder
         ])->assignRole('admin');
 
         $system->profile()->create([
-            'first_name' => 'system',
-            'last_name' => ''
+            'firstname' => 'system',
+            'lastname' => ''
         ]);
 
         $user = User::create([
@@ -162,8 +162,8 @@ class GauthSeeder extends Seeder
         ])->assignRole('user');
 
         $user->profile()->create([
-            'first_name' => 'user',
-            'last_name' => '1'
+            'firstname' => 'user',
+            'lastname' => '1'
         ]);
     }
 }

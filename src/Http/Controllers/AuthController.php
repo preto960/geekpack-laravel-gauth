@@ -70,7 +70,7 @@ class AuthController extends Controller
         $roles = $user->getRoleNames();
         $permissions = $user->getAllPermissions()->pluck('name');
         
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'profile' => $user->profile(), 'roles' => $roles, 'permissions' => $permissions, 'time_expire' => $expirationTime, 'time_expire_second' => $this->takeExpireTimeToken()], 200);
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'profile' => $user->profile()->first(), 'roles' => $roles, 'permissions' => $permissions, 'time_expire' => $expirationTime, 'time_expire_second' => $this->takeExpireTimeToken()], 200);
     }
 
     public function showRegister()
@@ -101,8 +101,8 @@ class AuthController extends Controller
         ]);
 
         $user->profile()->create([
-            'first_name' => $request->firstname,
-            'last_name' => $request->lastname
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname
         ]);
 
         // Asignar rol predeterminado al usuario
