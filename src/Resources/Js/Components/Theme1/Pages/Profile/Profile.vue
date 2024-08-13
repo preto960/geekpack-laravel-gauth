@@ -10,9 +10,9 @@
             <div class="flex flex-col items-center">
               <div class="w-48 h-48 mb-6 rounded-lg overflow-hidden border-4 border-gray-200 dark:border-gray-600 shadow-lg">
                 <img v-if="$getUser('avatar')" :src="user.avatar" alt="Avatar" class="w-full h-full object-cover">
-                <Avatar v-else :image="`https://ui-avatars.com/api/?name=${ $getUser('name') }&color=7F9CF5&background=EBF4FF`" class="w-full h-full" />
+                <Avatar v-else :image="`https://ui-avatars.com/api/?name=${ $getUser('fullname') }&color=7F9CF5&background=EBF4FF`" class="w-full h-full" />
               </div>
-              <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">{{ $getUser('name') }}</h2>
+              <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">{{ $getUser('fullname') }}</h2>
               <p class="text-gray-600 dark:text-gray-400 mb-2">{{ $getUser('email') }}</p>
               <p class="text-gray-600 dark:text-gray-400 mb-4">Member since: {{ new Date($getUser('created_at')).toLocaleDateString() }}</p>
             </div>

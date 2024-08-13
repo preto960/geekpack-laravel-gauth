@@ -3,11 +3,16 @@ export default {
       app.config.globalProperties.$getUser = (key) => {
         const store = app.config.globalProperties.$store;
         const user = store.state.data?.user || {};
+        const profile = store.state.data?.profile || {};
         const data = store.state.data || {};
   
         switch (key) {
-          case 'name':
-            return user.name;
+          case 'firstname':
+            return profile.firstname;
+          case 'lastname':
+            return profile.lastname;
+          case 'fullname':
+            return profile.firstname+' '+profile.lastname;
           case 'email':
             return user.email;
           case 'created_at':

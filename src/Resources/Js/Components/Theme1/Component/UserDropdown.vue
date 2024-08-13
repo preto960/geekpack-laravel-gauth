@@ -14,8 +14,8 @@
     </Link>
     <div v-else class="relative">
       <button @click="toggleDropdown" class="flex items-center focus:outline-none">
-        <Avatar :image="`https://ui-avatars.com/api/?name=${ $getUser('name') }&color=7F9CF5&background=EBF4FF`" shape="circle" />
-        <span class="ml-2 dark:text-white">{{ $getUser('name') }}</span>
+        <Avatar :image="`https://ui-avatars.com/api/?name=${ $getUser('fullname') }&color=7F9CF5&background=EBF4FF`" shape="circle" />
+        <span class="ml-2 dark:text-white">{{ $getUser('fullname') }}</span>
       </button>
       <div v-if="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded shadow-lg">
         <Link :href="route('profile')" @click="handleClick('profile')" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700">Profile</Link>

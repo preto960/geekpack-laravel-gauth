@@ -9,9 +9,14 @@
       <h2 class="text-2xl font-semibold text-center text-gray-700 dark:text-gray-200">Register</h2>
       <form @submit.prevent="submit">
         <div class="mt-4">
-          <label class="block text-gray-700 dark:text-gray-300">Name</label>
-          <input v-model="form.name" type="text" class="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:text-gray-300">
-          <InputError class="mt-2" :message="form.errors.name" />
+          <label class="block text-gray-700 dark:text-gray-300">First Name</label>
+          <input v-model="form.firstname" type="text" class="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:text-gray-300">
+          <InputError class="mt-2" :message="form.errors.firstname" />
+        </div>
+        <div class="mt-4">
+          <label class="block text-gray-700 dark:text-gray-300">Last Name</label>
+          <input v-model="form.lastname" type="text" class="w-full mt-2 p-2 border rounded-lg dark:bg-gray-700 dark:text-gray-300">
+          <InputError class="mt-2" :message="form.errors.lastname" />
         </div>
         <div class="mt-4">
           <label class="block text-gray-700 dark:text-gray-300">Email</label>
@@ -64,7 +69,8 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 const form = useForm({
-  name: '',
+  firstname: '',
+  lastname: '',
   email: '',
   password: '',
   password_confirmation: '',
@@ -82,7 +88,8 @@ const submit = async () => {
   form.isSubmitting = true;
   try {
     const response = await axios.post(route('api.register'), {
-      name: form.name,
+      firstname: form.firstname,
+      lastname: form.lastname,
       email: form.email,
       password: form.password,
       password_confirmation: form.password_confirmation,

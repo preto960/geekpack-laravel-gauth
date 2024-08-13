@@ -3,6 +3,7 @@
 namespace Geekpack\Gauth\Http\Controllers;
 
 use Geekpack\Gauth\Models\User;
+use Geekpack\Gauth\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -69,7 +70,7 @@ class AuthController extends Controller
         $roles = $user->getRoleNames();
         $permissions = $user->getAllPermissions()->pluck('name');
         
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'roles' => $roles, 'permissions' => $permissions, 'time_expire' => $expirationTime, 'time_expire_second' => $this->takeExpireTimeToken()], 200);
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user, 'profile' => $user->profile(), 'roles' => $roles, 'permissions' => $permissions, 'time_expire' => $expirationTime, 'time_expire_second' => $this->takeExpireTimeToken()], 200);
     }
 
     public function showRegister()
@@ -80,7 +81,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'firstname' => 'required|string|max:100',
+            'lastname' => 'required|string|max:100',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|min:8'
@@ -94,9 +96,13 @@ class AuthController extends Controller
         }
 
         $user = User::create([
-            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+        ]);
+
+        $user->profile()->create([
+            'first_name' => $request->firstname,
+            'last_name' => $request->lastname
         ]);
 
         // Asignar rol predeterminado al usuario
