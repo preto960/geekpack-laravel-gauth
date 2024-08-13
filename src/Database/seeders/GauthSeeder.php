@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Geekpack\Api\Models\ApiRoute;
 use Geekpack\Gauth\Models\User;
+use Geekpack\Gauth\Models\Profile;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
@@ -144,17 +145,25 @@ class GauthSeeder extends Seeder
         $adminRole->givePermissionTo($manageUsersPermission);
 
         $system = User::create([
-            'name' => 'system',
             'email' => 'system@gmail.com',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('123456')
         ])->assignRole('admin');
 
+        $system->profile()->create([
+            'first_name' => 'system',
+            'last_name' => ''
+        ]);
+
         $user = User::create([
-            'name' => 'user',
             'email' => 'user@gmail.com',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('123456')
         ])->assignRole('user');
+
+        $user->profile()->create([
+            'first_name' => 'user',
+            'last_name' => '1'
+        ]);
     }
 }
