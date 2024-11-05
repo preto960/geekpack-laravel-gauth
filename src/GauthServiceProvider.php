@@ -88,7 +88,7 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Gauth\Events\Registered::class,
             \Geekpack\Gauth\Listeners\SendEmailVerificationNotification::class,
         );
-dd(__DIR__);
+dd(__DIR__.'/Database/migrations');
         $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
 
         $this->app->afterResolving(Seeder::class, function (Seeder $seeder) {
