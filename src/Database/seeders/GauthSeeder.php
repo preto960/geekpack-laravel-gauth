@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Geekpack\Gauth\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Geekpack\Api\Models\ApiRoute;
