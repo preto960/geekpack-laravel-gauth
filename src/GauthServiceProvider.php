@@ -89,6 +89,18 @@ class GauthServiceProvider extends ServiceProvider
             \Geekpack\Gauth\Events\Registered::class,
             \Geekpack\Gauth\Listeners\SendEmailVerificationNotification::class,
         );
+
+        if ($this->app->runningInConsole()) {
+            $this->callSeederOnDbSeed();
+        }
+    }
+
+    protected function callSeederOnDbSeed()
+    {
+        Artisan::command('db:seed', function () {
+            $this->call(GauthSeeder::class);
+            $this->info('GauthSeeder has been executed.');
+        });
     }
 }
 
