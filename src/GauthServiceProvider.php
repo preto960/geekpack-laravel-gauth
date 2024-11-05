@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Artisan;
 use Inertia\Inertia;
 use Illuminate\Contracts\Http\Kernel;
 use App\Http\Middleware\HandleInertiaRequests;
