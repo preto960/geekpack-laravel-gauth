@@ -1,8 +1,7 @@
 <template>
   <AppLayout>
     <Head title="Profile" />
-    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold mb-6 dark:text-gray-200">User Profile</h1>
+    <div class="max-w-7xl mx-auto py-8 ">
       <div class="flex flex-col md:flex-row gap-6">
         <!-- Profile card on the left -->
         <div class="w-full md:w-1/3">

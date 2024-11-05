@@ -15,6 +15,7 @@ import store from "./store";
 import { startExpirationCheck, stopExpirationCheck } from './service/authService';
 import PermissionPlugin from './service/permissionPlugin';
 import UserPlugin from './service/userPlugin';
+import PackagePlugin from './service/packagePlugin';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -50,6 +51,7 @@ createInertiaApp({
             .use(ToastService)
             .use(PermissionPlugin)
             .use(UserPlugin)
+            .use(PackagePlugin)
             .component('Toast', Toast);
 
         app.mixin({

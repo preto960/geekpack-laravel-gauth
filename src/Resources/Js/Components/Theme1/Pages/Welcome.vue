@@ -23,6 +23,7 @@ const props = defineProps({
   laravelVersion: { type: String, required: true },
   phpVersion: { type: String, required: true },
   template: { type: String, required: true },
+  canPackage: { type: Object, required: true },
 });
 
 const ComponentLoaded = ref(true);

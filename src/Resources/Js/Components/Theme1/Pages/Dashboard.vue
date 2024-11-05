@@ -6,13 +6,13 @@
       <div class="mt-4 text-lg dark:text-gray-300 animate-pulse">loading...</div>
     </div>
   <div v-else class="min-h-screen bg-gray-100 dark:bg-gray-900 flex">
-    <Sidebar :isMinimized="isMinimized" />
+    <Sidebar :isMinimized="isMinimized" v-if="$getPackage('geekpack/laravel-gmenu')"/>
 
-    <div class="flex-1">
+    <div class="flex-1 mx-auto py-6 px-6">
       <header class="bg-white dark:bg-gray-800 shadow">
         <div class="mx-auto py-4 px-4 sm:px-4 lg:px-4 flex justify-between items-center">
           <div class="flex items-center space-x-4">
-            <button @click="toggleSidebar" class="text-gray-400 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-200 focus:outline-none focus:text-gray-900 dark:focus:text-gray-200">
+            <button @click="toggleSidebar" v-if="$getPackage('geekpack/laravel-gmenu')" class="text-gray-400 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-200 focus:outline-none focus:text-gray-900 dark:focus:text-gray-200">
               <svg v-if="isMinimized" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
               </svg>
@@ -31,10 +31,9 @@
       </header>
 
       <main>
-        <div class="mx-auto py-6 sm:px-6 lg:px-8">
-          <div class="px-4 py-6 sm:px-0">
+        <div class="mx-auto">
+          <div class="px-4 sm:px-0">
             <slot></slot>
-            <!-- <div class="border-4 border-dashed border-gray-200 dark:border-gray-700 rounded-lg h-96"></div> -->
           </div>
         </div>
       </main>

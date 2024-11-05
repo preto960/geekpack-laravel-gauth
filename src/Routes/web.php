@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
+use Composer\InstalledVersions;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -13,6 +14,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'template' => 'Theme1',
         'canAuth' => Auth::user(),
-        'canSystemName' => 'geekosdev'
+        'canSystemName' => 'geekosdev',
+        'canPackage' => InstalledVersions::getInstalledPackages()
     ]);
 })->name('home');

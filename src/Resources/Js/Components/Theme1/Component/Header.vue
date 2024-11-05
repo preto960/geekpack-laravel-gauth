@@ -4,7 +4,7 @@
     <Time />
     <div class="flex items-center space-x-4" v-if="system.canLogin">
       <ThemeToggleButton />
-      <UserDropdown />
+      <UserDropdown v-if="$getPackage('geekpack/laravel-gauth')"/>
     </div>
   </header>
 </template>
