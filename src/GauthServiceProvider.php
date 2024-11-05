@@ -92,7 +92,7 @@ class GauthServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
 
         $this->app->afterResolving(Seeder::class, function (Seeder $seeder) {
-            $seeder->call(\Geekpack\Gauth\Database\Seeders\GauthSeeder::class);
+            $seeder->call(\Geekpack\Gauth\Database\seeders\GauthSeeder::class);
         });
     }
 }
