@@ -84,23 +84,15 @@ class GauthServiceProvider extends ServiceProvider
             __DIR__.'/Database/seeders/GauthSeeder.php' => database_path('seeders/GauthSeeder.php'),
         ], 'seeders');
 
-        $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
-
         \Illuminate\Support\Facades\Event::listen(
             \Geekpack\Gauth\Events\Registered::class,
             \Geekpack\Gauth\Listeners\SendEmailVerificationNotification::class,
         );
 
-        if ($this->app->runningInConsole()) {
-            $this->callSeederOnDbSeed();
-        }
-    }
+        $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
 
-    protected function callSeederOnDbSeed()
-    {
-        Artisan::command('db:seed', function () {
-            $this->call(GauthSeeder::class);
-            $this->info('GauthSeeder has been executed.');
+        $this->app->afterResolving(Seeder::class, function (Seeder $seeder) {
+            $seeder->call(\Geekpack\Gauth\Database\Seeders\GauthSeeder::class);
         });
     }
 }
