@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Artisan;
 use Inertia\Inertia;
 use Illuminate\Contracts\Http\Kernel;
-use Geekpack\Gauth\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\HandleInertiaRequests;
 use Geekpack\Gauth\Database\seeders\GauthSeeder;
 
 class GauthServiceProvider extends ServiceProvider
@@ -18,7 +18,7 @@ class GauthServiceProvider extends ServiceProvider
     {
         $this->app['router']->aliasMiddleware('verified', \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class);
         $this->app['router']->aliasMiddleware('signed', \Illuminate\Routing\Middleware\ValidateSignature::class);
-        $this->app['router']->aliasMiddleware('inertia', \Geekpack\Gauth\Http\Middleware\HandleInertiaRequests::class);
+        $this->app['router']->aliasMiddleware('inertia', \App\Http\Middleware\HandleInertiaRequests::class);
 
         $this->mergeConfigFrom(
             __DIR__.'/../config/inertia.php',
@@ -72,7 +72,7 @@ class GauthServiceProvider extends ServiceProvider
             __DIR__.'/Routes/web.php' => base_path('routes/web.php'),
         ], 'routes');      
         
-        /* $this->publishes([
+        $this->publishes([
             __DIR__.'/Http/Middleware/HandleInertiaRequests.php' => app_path('Http/Middleware/HandleInertiaRequests.php'),
         ], 'middleware');   
 
@@ -82,7 +82,7 @@ class GauthServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/Database/seeders/GauthSeeder.php' => database_path('seeders/GauthSeeder.php'),
-        ], 'seeders'); */
+        ], 'seeders');
 
         \Illuminate\Support\Facades\Event::listen(
             \Geekpack\Gauth\Events\Registered::class,
@@ -91,9 +91,6 @@ class GauthServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__.'\Database\migrations');
 
-        $this->app->afterResolving(Seeder::class, function (Seeder $seeder) {
-            $seeder->call(\Geekpack\Gauth\Database\Seeders\GauthSeeder::class);
-        });
     }
 }
 
