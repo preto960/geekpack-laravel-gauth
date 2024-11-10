@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Artisan;
 use Inertia\Inertia;
 use Illuminate\Contracts\Http\Kernel;
-use Http\Middleware\HandleInertiaRequests;
+use Geekpack\Gauth\Http\Middleware\HandleInertiaRequests;
 use Geekpack\Gauth\Database\seeders\GauthSeeder;
 
 class GauthServiceProvider extends ServiceProvider
@@ -18,7 +18,7 @@ class GauthServiceProvider extends ServiceProvider
     {
         $this->app['router']->aliasMiddleware('verified', \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class);
         $this->app['router']->aliasMiddleware('signed', \Illuminate\Routing\Middleware\ValidateSignature::class);
-        $this->app['router']->aliasMiddleware('inertia', \Http\Middleware\HandleInertiaRequests::class);
+        $this->app['router']->aliasMiddleware('inertia', \Geekpack\Gauth\Http\Middleware\HandleInertiaRequests::class);
 
         $this->mergeConfigFrom(
             __DIR__.'/../config/inertia.php',
