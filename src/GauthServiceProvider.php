@@ -38,7 +38,7 @@ class GauthServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        /* $this->publishes([
+        $this->publishes([
             __DIR__.'/../config/mail.php' => config_path('mail.php'),
             __DIR__.'/../config/inertia.php' => config_path('inertia.php'),
             __DIR__.'/../config/permission.php' => config_path('permission.php'),
@@ -72,7 +72,7 @@ class GauthServiceProvider extends ServiceProvider
             __DIR__.'/Routes/web.php' => base_path('routes/web.php'),
         ], 'routes');      
         
-        $this->publishes([
+        /* $this->publishes([
             __DIR__.'/Http/Middleware/HandleInertiaRequests.php' => app_path('Http/Middleware/HandleInertiaRequests.php'),
         ], 'middleware');   
 
