@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Artisan;
 use Inertia\Inertia;
 use Illuminate\Contracts\Http\Kernel;
-use App\Http\Middleware\HandleInertiaRequests;
+use Http\Middleware\HandleInertiaRequests;
 use Geekpack\Gauth\Database\seeders\GauthSeeder;
 
 class GauthServiceProvider extends ServiceProvider
@@ -18,7 +18,7 @@ class GauthServiceProvider extends ServiceProvider
     {
         $this->app['router']->aliasMiddleware('verified', \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class);
         $this->app['router']->aliasMiddleware('signed', \Illuminate\Routing\Middleware\ValidateSignature::class);
-        $this->app['router']->aliasMiddleware('inertia', \App\Http\Middleware\HandleInertiaRequests::class);
+        $this->app['router']->aliasMiddleware('inertia', \Http\Middleware\HandleInertiaRequests::class);
 
         $this->mergeConfigFrom(
             __DIR__.'/../config/inertia.php',
@@ -38,7 +38,7 @@ class GauthServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        $this->publishes([
+        /* $this->publishes([
             __DIR__.'/../config/mail.php' => config_path('mail.php'),
             __DIR__.'/../config/inertia.php' => config_path('inertia.php'),
             __DIR__.'/../config/permission.php' => config_path('permission.php'),
@@ -82,7 +82,7 @@ class GauthServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/Database/seeders/GauthSeeder.php' => database_path('seeders/GauthSeeder.php'),
-        ], 'seeders');
+        ], 'seeders'); */
 
         \Illuminate\Support\Facades\Event::listen(
             \Geekpack\Gauth\Events\Registered::class,
